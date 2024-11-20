@@ -15,7 +15,7 @@ import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAuthData } from "../../store/authSlice";
-import { SUPERADMIN_ROLE_ID } from "../../constants/ROLES";
+import { Employee_Id } from "../../constants/ROLES";
 import { styles } from "./Login.style";
 import { useSnackbar } from "../../hook";
 import { loginUser } from "../../services/LoginService/loginUser";
@@ -60,11 +60,7 @@ const LoginForm = () => {
           })
         );
         showSnackbar("Login successful", "success");
-        navigate(
-          response.role_id === SUPERADMIN_ROLE_ID
-            ? "/superAdminDashboard"
-            : "/adminDashboard"
-        );
+        navigate(response.role_id === Employee_Id ? "/landingPage" : "*");
       } else {
         showSnackbar("Invalid credentials", "error");
       }
