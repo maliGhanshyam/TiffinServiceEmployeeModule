@@ -29,6 +29,10 @@ const UserDashboard = () => {
     }
   };
 
+  const fetchRetailersOfOrg = async () =>{
+    
+  }
+
   // useEffect to fetch data
   useEffect(() => {
     fetchRetailerTiffins();

@@ -1,5 +1,6 @@
 import { tiffin } from "./AllTiffin.types";
 import axiosInstance from "../axiosinstance";
+import { UserData } from "../../Types";
 
 const API_URL = process.env.REACT_APP_API_URL! || "http://localhost:5000";
 
@@ -13,11 +14,17 @@ export const getAllTiffins = async (): Promise<tiffin[]> => {
 
 export const getAllTiffinofOrg = async (): Promise<tiffin[]> => {
   const response = await axiosInstance.get(
-    `${API_URL}/api/employees/getallretailersoforg`
+    `${API_URL}/api/employees/getalltiffinoforg`
   );
   return response.data.data;
 };
 
+export const getAllRetailersofOrg = async (): Promise<UserData[]> =>{
+    const response = await axiosInstance.get(`${API_URL}/api/employees/getallretailersoforg`)
+    return response.data.data
+}
+
+// /api/employees/getallretailersoforg
 // /api/employees/getallretailersoforg
 
 // export const getAllTiffins = async (): Promise<tiffin[]> => {

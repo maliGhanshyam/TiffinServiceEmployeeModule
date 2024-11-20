@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Alert,
   Box,
   Button,
   Container,
@@ -17,14 +16,14 @@ import { useDispatch } from "react-redux";
 import { setAuthData } from "../../store/authSlice";
 import { Employee_Id } from "../../constants/ROLES";
 import { styles } from "./Login.style";
-import { useSnackbar } from "../../hook";
+// import { useSnackbar } from "../../hook";
 import { loginUser } from "../../services/LoginService/loginUser";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const { showSnackbar } = useSnackbar();
+  // const { showSnackbar } = useSnackbar();
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -59,13 +58,14 @@ const LoginForm = () => {
             userId: response._id,
           })
         );
-        showSnackbar("Login successful", "success");
+        // showSnackbar("Login successful", "success");
         navigate(response.role_id === Employee_Id ? "/landingPage" : "*");
       } else {
-        showSnackbar("Invalid credentials", "error");
+        // showSnackbar("Invalid credentials", "error");
       }
     } catch (error) {
-      showSnackbar("Login error. Please try again.", "error");
+      // showSnackbar("Login error. Please try again.", "error");
+      console.log(error);
     } finally {
       setSubmitting(false);
     }

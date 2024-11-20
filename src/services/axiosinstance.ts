@@ -17,7 +17,7 @@ axiosInstance.interceptors.request.use(
     console.log(ogToken);
     // const token = getToken();
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2Q4MGI4ZGI1MjVmYjAxYTIxNjA5NCIsInJvbGUiOiI2NzI4YjZmNDNhNzNjZjc1N2Q4MjRhZTQiLCJpYXQiOjE3MzIwOTE4NzcsImV4cCI6MTczMjA5OTA3N30.--KrQRrk6bhULXyivZa7pypp1uDGHYv5AcEMFRldMN4";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2Q4MGI4ZGI1MjVmYjAxYTIxNjA5NCIsInJvbGUiOiI2NzI4YjZmNDNhNzNjZjc1N2Q4MjRhZTQiLCJpYXQiOjE3MzIxMDAzOTYsImV4cCI6MTczMjEwNzU5Nn0.RIyTurVAugAw_qQDWxh__xLtOlamxgA8z2R_LwzjNMw";
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
