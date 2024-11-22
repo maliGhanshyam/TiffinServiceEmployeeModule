@@ -1,6 +1,6 @@
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import PageNotFound from "../components/NotFound/PageNotFound";
-import { UserDashboard } from "../pages/dashboard";
+import { UserDashboard2 } from "../pages/dashboard";
 import { UserLandingPage } from "../pages/landingPage";
 import { LoginForm } from "../pages/LoginPage";
 
@@ -15,7 +15,7 @@ const childRoutes = [
   },
   {
     path: "",
-    element: <UserDashboard />,
+    element: <UserDashboard2 />,
   },
   {
     path: "/landingPage",

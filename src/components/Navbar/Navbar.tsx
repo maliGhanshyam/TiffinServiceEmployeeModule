@@ -14,9 +14,10 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import tiff3 from "../../assets/tiff3.png";
-// import { getToken, logoutUser } from "../../services/LoginService/loginUser";
+import { getToken, logoutUser } from "../../services/LoginService/loginUser";
 import { logoStyle, styles } from "./Navbar.styles";
 import { useDispatch } from "react-redux";
+import { clearAuthData } from "../../store/authSlice";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -27,25 +28,35 @@ const Navbar = () => {
   };
 
   const handleAuthToggle = () => {
-    navigate("/login");
+    if (getToken()) {
+      logoutUser();
+      dispatch(clearAuthData());
+      navigate("/login");
+    } else {
+      navigate("/login");
+    }
   };
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={styles.drawerBox}>
       <List>
-        <ListItem component={Link} to="/dashboard">
-          <ListItemText primary="Home" />
-        </ListItem>
-        {/* <ListItem
+        {getToken() && (
+          <ListItem component={Link} to="/dashboard">
+            <ListItemText primary="Home" />
+          </ListItem>
+        )}
+        <ListItem
           component={Link}
           to={getToken() ? "#" : "/login"}
           onClick={getToken() ? handleAuthToggle : undefined}
         >
-          <ListItemText primary={} "Logout" : "Login"} />
-        </ListItem> */}
-        <ListItem component={Link} to="/register">
-          <ListItemText primary="Register" />
+          <ListItemText primary={getToken() ? "Logout" : "Login"} />
         </ListItem>
+        {!getToken() && (
+          <ListItem component={Link} to="/register">
+            <ListItemText primary="Register" />
+          </ListItem>
+        )}
       </List>
     </Box>
   );
@@ -56,17 +67,26 @@ const Navbar = () => {
         <Toolbar sx={styles.toolbar}>
           <Box sx={styles.toolbar}>
             <img src={tiff3} alt="Logo" style={logoStyle} />
-            <Typography variant="h5" sx={styles.title}>
-              Neo-Tiffins
-            </Typography>
-            <Button
-              color="inherit"
-              component={Link}
-              to="/dashboard"
-              sx={styles.button}
+            <Typography
+              variant="h5"
+              //This Font family is used only for Logo Design Purpose
+              sx={{ ...styles.title, fontFamily: "Futura, Avenir, sans-serif" }}
             >
-              Home
-            </Button>
+              <span style={{ color: "black", fontWeight: "bold" }}>Neo</span>
+              <span style={{ color: "white", fontWeight: "bold" }}>
+                Tiffins
+              </span>
+            </Typography>
+            {getToken() && (
+              <Button
+                color="inherit"
+                component={Link}
+                to="/dashboard"
+                sx={styles.button}
+              >
+                Home
+              </Button>
+            )}
           </Box>
           <Box
             sx={{
@@ -78,20 +98,22 @@ const Navbar = () => {
             <Button
               color="inherit"
               component={Link}
-              to={"#"}
+              to={getToken() ? "#" : "/login"}
+              onClick={getToken() ? handleAuthToggle : undefined}
               sx={styles.button2}
             >
-              {" "}
-              Logout
+              {getToken() ? "Logout" : "Login"}
             </Button>
-            <Button
-              color="inherit"
-              component={Link}
-              to="/register"
-              sx={styles.button2}
-            >
-              Register
-            </Button>
+            {!getToken() && (
+              <Button
+                color="inherit"
+                component={Link}
+                to="/register"
+                sx={styles.button2}
+              >
+                Register
+              </Button>
+            )}
           </Box>
           <IconButton
             color="inherit"
