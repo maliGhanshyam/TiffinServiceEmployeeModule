@@ -13,7 +13,11 @@ import {
   Typography,
   Grid,
   CardMedia,
+  CardActionArea,
 } from "@mui/material";
+import CardActions from "@mui/material/CardActions";
+import { AddToCartButton } from "../../components/AddToCartButton";
+
 // import Card from '@mui/material/Card';
 // import CardContent from '@mui/material/CardContent';
 
@@ -21,6 +25,7 @@ const UserDashboard = () => {
   const [tiffins, setTiffins] = useState<tiffin[]>([]);
   const [orgTiffins, setOrgTiffins] = useState<tiffin[]>([]);
   const [retailers, setRetailers] = useState<UserData[]>([]);
+  const tiffin_quantity = 1;
 
   const fetchRetailerTiffins = async () => {
     try {
@@ -62,25 +67,10 @@ const UserDashboard = () => {
 
   return (
     <div>
-      <p>Hello From Dashboard</p>
-      <Box>
-        <Card>
-          <CardContent>hii</CardContent>
-        </Card>
-      </Box>
-      {/* <div>
-        {tiffins.length === 0 ? (
-          <p>Loading...</p>
-        ) : (
-          tiffins.map((orgTiffins) => (
-            <div key={orgTiffins.tiffin_name}>
-              <p>{orgTiffins.tiffin_name}</p>
-              <p>{orgTiffins.tiffin_description}</p>
-              <p>{orgTiffins.tiffin_price}</p>
-            </div>
-          ))
-        )}
-      </div> */}
+      <img
+        src="https://t3.ftcdn.net/jpg/05/33/82/34/360_F_533823407_h0wVzQub7h3b6OZVWE44BPf5E6SHndxI.jpg"
+        alt="test"
+      />
       <div style={{ marginTop: "20px" }}>
         <Typography variant="h6">Tiffins:</Typography>
         <Grid container spacing={3}>
@@ -89,28 +79,43 @@ const UserDashboard = () => {
           ) : (
             tiffins.map((tiffinItem) => (
               <Grid item xs={12} sm={6} md={4} key={tiffinItem.tiffin_name}>
-                <Card sx={{ width: 350, height: 450 }}>
-                  {/* Display Tiffin Image */}
-                  {tiffinItem.tiffin_image_url && (
-                    <CardMedia
-                      component="img"
-                      height="240"
-                      image={tiffinItem.tiffin_image_url}
-                      alt={tiffinItem.tiffin_name}
-                      sx={{ objectFit: "cover", width: "100%" }}
-                    />
-                  )}
-                  <CardContent>
-                    <Typography variant="h6">
-                      {tiffinItem.tiffin_name}
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary">
-                      {tiffinItem.tiffin_description}
-                    </Typography>
-                    <Typography variant="h6" color="primary">
-                      Price: ${tiffinItem.tiffin_price}
-                    </Typography>
-                  </CardContent>
+                <Card sx={{ width: 345 }}>
+                  <CardActionArea>
+                    {tiffinItem.tiffin_image_url && (
+                      <CardMedia
+                        component="img"
+                        height="140"
+                        image={
+                          tiffinItem.tiffin_image_url &&
+                          tiffinItem.tiffin_image_url.trim() !== ""
+                            ? tiffinItem.tiffin_image_url
+                            : "https://t3.ftcdn.net/jpg/05/33/82/34/360_F_533823407_h0wVzQub7h3b6OZVWE44BPf5E6SHndxI.jpg"
+                        }
+                        alt={tiffinItem.tiffin_name}
+                        sx={{ objectFit: "cover", width: "100%" }}
+                      />
+                    )}
+                    <CardContent>
+                      <Typography variant="h5" component="div">
+                        {tiffinItem.tiffin_name}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        {tiffinItem.tiffin_description}
+                      </Typography>
+                      <Typography variant="h6" color="primary">
+                        Price: ${tiffinItem.tiffin_price}
+                      </Typography>
+                      <Typography variant="h6" color="textSecondary">
+                        Rating: ${tiffinItem.tiffin_rating}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <AddToCartButton
+                      tiffinId={tiffinItem.tiffin_id}
+                      availableQuantity={tiffin_quantity}
+                    ></AddToCartButton>
+                  </CardActions>
                 </Card>
               </Grid>
             ))

@@ -7,3 +7,4 @@ export type { UserData } from "./User";
 export type { OrganizationsResponse } from "./ApiResponse";
 export type { ApiResponse } from "./ApiResponse";
 export type { Pagination } from "./ApiResponse";
+export type {tiffin} from "./tiffin"
