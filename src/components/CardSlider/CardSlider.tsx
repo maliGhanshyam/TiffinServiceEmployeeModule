@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { Box } from "@mui/material";
 import Slider from "react-slick";
 import { CardSliderProps } from "./CardSlider.types";
@@ -33,6 +34,7 @@ const CardSlider = <T extends { _id: string }>({ data, children, settings }: Car
   };
 
   return (
+    
     <Box sx={styles.boxContainerStyles}>
       <Slider {...defaultSettings}>
         {data.map((item) => (

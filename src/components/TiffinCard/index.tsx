@@ -1,1 +1,1 @@
-export {default as TiffinCard} from "./TiffinCard";
+export { default as TiffinCard } from "./TiffinCard";

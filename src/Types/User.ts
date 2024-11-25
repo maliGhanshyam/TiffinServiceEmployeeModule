@@ -5,6 +5,7 @@ export interface UserData {
   contact_number: string;
   address: string;
   role_id: string;
+  user_image: string;
   role_specific_details: RoleSpecificDetails;
 }
 
@@ -13,4 +14,5 @@ export interface RoleSpecificDetails {
   organization_id: string;
   organization_name: string;
   approval_status: string;
+  retailer_rating: number;
 }

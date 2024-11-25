@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, CardActions, Chip, Rating, Tooltip, Typography } from "@mui/material";
+import { Box, CardActions, Chip, Rating, Tooltip, Typography } from "@mui/material";
 import { TiffinInfoCardProps } from "./TiffinInfoCard.types";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";

@@ -1,13 +1,12 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { ActionCard } from "../ActionCard";
-import { TiffinInfoCard } from "../TiffinInfoCard";
-import { styles } from "./TiffinCard.styles";
-import { TiffinCardProps } from "./TiffinCard.types";
+import { styles } from "./RetailerCard.styles";
+import { RetailerCardProps } from "./RetailerCard.types";
+import RetailerInfoCard from "../retailerInfoCard/RetailerInfoCard";
 
-const TiffinCard: React.FC<TiffinCardProps> = ({
-  tiffin,
-  tiffin_quantity,
+const RetailerCard: React.FC<RetailerCardProps> = ({
+  retailer,
   onApprove,
   onReject,
   showButtons = false,
@@ -17,12 +16,11 @@ const TiffinCard: React.FC<TiffinCardProps> = ({
     <Box sx={style}>
       <ActionCard
         sx={styles.cardStyles}
-        imageUrl={tiffin.user_image!}
+        imageUrl={retailer.user_image!}
         imageStyles={styles.cardMediaStyles}
       >
-        <TiffinInfoCard
-          tiffin={tiffin}
-          tiffin_quantity={tiffin_quantity}
+        <RetailerInfoCard
+          retailer={retailer}
           showButtons={true}
           onApprove={onApprove}
           onReject={onReject}
@@ -32,4 +30,4 @@ const TiffinCard: React.FC<TiffinCardProps> = ({
   );
 };
 
-export default TiffinCard;
+export default RetailerCard;

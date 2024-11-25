@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { Button, TextField, Box, Snackbar } from "@mui/material";
 import axiosInstance from "../../services/axiosinstance";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; 
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 interface AddToCartButtonProps {
   tiffinId: string;
@@ -31,16 +32,17 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
         requestData
       );
 
-      setSuccessMessage(response.data.message); 
+      setSuccessMessage(response.data.message);
       setLoading(false);
     } catch (err: unknown) {
       setLoading(false);
       setError("Error adding to cart");
     }
   };
+  
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
       {/* Quantity Input */}
       <TextField
         label="Quantity"
@@ -50,9 +52,9 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
         onChange={(e) => setQuantity(Number(e.target.value))}
         inputProps={{ min: 1, max: availableQuantity }}
         sx={{
-          width: 'auto',
+          width: "auto",
           flexGrow: 1,
-          height: '45px', // Set fixed height for consistency
+          height: "45px", // Set fixed height for consistency
         }}
         margin="normal"
       />
@@ -65,9 +67,9 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
         onClick={handleAddToCart}
         disabled={loading || quantity <= 0 || quantity > availableQuantity}
         sx={{
-          height: '40px', 
+          height: "40px",
         }}
-        startIcon={<ShoppingCartIcon />} 
+        startIcon={<ShoppingCartIcon />}
       >
         {loading ? "Adding..." : "Add to Cart"}
       </Button>

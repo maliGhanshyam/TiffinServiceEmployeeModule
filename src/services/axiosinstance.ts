@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = '';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const getToken = () => {
   return localStorage.getItem("token");
@@ -15,9 +15,9 @@ axiosInstance.interceptors.request.use(
     //temp
     const ogToken = getToken();
     console.log(ogToken);
-    // const token = getToken();
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDAxOWNkNmE0MjQ3ZDVjZjQxNDkzOCIsInJvbGUiOiI2NzI4YjZmNDNhNzNjZjc1N2Q4MjRhZTQiLCJpYXQiOjE3MzI0NTU0NTMsImV4cCI6MTczMjQ2MjY1M30.Sjy5czjgWfCreMohG0zbw6vju_P_W2sEaLLbJiGJ6h4";
+    const token = getToken();
+    // const token =
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDAxOWNkNmE0MjQ3ZDVjZjQxNDkzOCIsInJvbGUiOiI2NzI4YjZmNDNhNzNjZjc1N2Q4MjRhZTQiLCJpYXQiOjE3MzI1MTAyOTQsImV4cCI6MTczMjUxNzQ5NH0.CztSfUngmkvlKKIkGHXjKI0g2kpFS9_znCyBtGtb2ao";
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

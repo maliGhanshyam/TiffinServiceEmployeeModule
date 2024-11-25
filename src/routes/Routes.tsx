@@ -1,8 +1,10 @@
+/* eslint-disable react/react-in-jsx-scope */
 // import { Navigate } from "react-router-dom";
 import PageNotFound from "../components/NotFound/PageNotFound";
 import { UserDashboard2 } from "../pages/dashboard";
 import { UserLandingPage } from "../pages/landingPage";
 import { LoginForm } from "../pages/LoginPage";
+import RetailerPage from "../pages/RetailerPage/RetailerPage";
 
 const childRoutes = [
   {
@@ -20,6 +22,10 @@ const childRoutes = [
   {
     path: "/landingPage",
     element: <UserLandingPage />,
+  },
+  {
+    path: "/retailerpage/:retailer_id",
+    element: <RetailerPage/>,
   },
 ];
 
