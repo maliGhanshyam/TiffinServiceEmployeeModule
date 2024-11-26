@@ -84,7 +84,7 @@ const CartPage: React.FC = () => {
                       onChange={() => {}}
                       sx={{ marginRight: "10px", width: "80px" }}
                     >
-                      {[...Array(10).keys()].map((x) => (
+                      {[...Array(50).keys()].map((x) => (
                         <MenuItem key={x + 1} value={x + 1}>
                           {x + 1}
                         </MenuItem>
