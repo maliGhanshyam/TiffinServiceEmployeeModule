@@ -9,4 +9,5 @@ export const styles: { [key: string]: SxProps<Theme> } = {
     padding: "0 10px",
     width: "100%",
   },
+  
 };

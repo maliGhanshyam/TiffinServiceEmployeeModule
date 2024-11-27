@@ -2,7 +2,7 @@ import { tiffin } from "./AllTiffin.types";
 import axiosInstance from "../axiosinstance";
 import { UserData } from "../../Types";
 
-const API_URL = process.env.REACT_APP_API_URL! || "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_URL! || "http://localhost:5000/api";
 
 //Fetch all tiffins available at the organization
 export const getAllTiffins = async (): Promise<tiffin[]> => {
