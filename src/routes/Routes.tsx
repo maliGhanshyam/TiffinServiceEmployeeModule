@@ -4,15 +4,25 @@ import { UserDashboard } from "../pages/dashboard";
 import { UserLandingPage } from "../pages/landingPage";
 import { LoginForm } from "../pages/LoginPage";
 import CartPage from "../pages/CartPage/CartPage";
+import ProtectedRoute from "./ProtectedRoute";
+import { Employee_Id } from "../constants/ROLES";
 
 const childRoutes = [
   {
     path: "login",
-    element: <LoginForm />,
+    element: (
+      <ProtectedRoute guestOnly={true}>
+        <LoginForm />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "cart",
-    element: <CartPage />,
+    element: (
+      <ProtectedRoute requiredRole={Employee_Id}>
+        <CartPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "*",
@@ -24,7 +34,11 @@ const childRoutes = [
   },
   {
     path: "/landingPage",
-    element: <UserLandingPage />,
+    element: (
+      <ProtectedRoute requiredRole={Employee_Id}>
+        <UserLandingPage />
+      </ProtectedRoute>
+    ),
   },
 ];
 
