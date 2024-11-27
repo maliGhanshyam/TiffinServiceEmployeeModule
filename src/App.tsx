@@ -1,8 +1,10 @@
+import React from "react";
 import "./App.css";
+import { Navbar } from "./components/Navbar";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
-import { SnackbarProvider } from "./context";
-import { Navbar } from "./components/Navbar";
+// import { SnackbarProvider } from "./context";
+import { Footer } from "./components/Footer";
 
 function App() {
   return (
@@ -12,10 +14,11 @@ function App() {
     >
       <Navbar/>
       <main style={{ flex: 1 }}>
-        <SnackbarProvider>
+        {/* <SnackbarProvider> */}
           <Outlet />
-        </SnackbarProvider>
+        {/* </SnackbarProvider> */}
       </main>
+      <Footer />
     </Box>
   );
 }
