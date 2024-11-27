@@ -13,19 +13,21 @@ import {
 import { Formik, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setAuthData } from "../../store/authSlice";
 import { Employee_Id } from "../../constants/ROLES";
 import { styles } from "./Login.style";
 import { useSnackbar } from "../../hook";
 import { loginUser } from "../../services/LoginService/loginUser";
+import { RootState } from "../../store/Store";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const { showSnackbar } = useSnackbar();
-
+  const userRoleId = useSelector((state: RootState) => state.auth.userRoleId);
+  const userId = useSelector((state: RootState) => state.auth.userId);
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email format")
@@ -59,6 +61,8 @@ const LoginForm = () => {
             userId: response._id,
           })
         );
+        console.log(userId, userRoleId, response);
+
         showSnackbar("Login successful", "success");
         navigate(response.role_id === Employee_Id ? "/landingPage" : "*");
       } else {
