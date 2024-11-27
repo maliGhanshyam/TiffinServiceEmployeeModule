@@ -48,7 +48,7 @@ const ProtectedRoute: FC<AuthGuardProps> = ({
 
   // Redirect logic for guest-only routes
   if (guestOnly && token) {
-      return <Navigate to="/landingPage" replace />;
+      return <Navigate to="/dashboard" replace />;
   }
 
   // Redirect logic for protected routes

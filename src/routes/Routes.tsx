@@ -10,6 +10,7 @@ import { Employee_Id } from "../constants/ROLES";
 import { ProfileUpdate } from "../pages/ProfileUpdate";
 import ProtectedRoute from "./ProtectedRoute";
 import RetailerPage from "../pages/RetailerPage/RetailerPage";
+import UserDashboard from "../pages/dashboard/UserDashboard";
 
 const childRoutes = [
   {
@@ -29,8 +30,8 @@ const childRoutes = [
     element: <PageNotFound />,
   },
   {
-    path: "",
-    element: <UserDashboard2 />,
+    path: "/dashboard",
+    element: <UserDashboard />,
   },
   {
     path: "/landingPage",

@@ -59,7 +59,7 @@ const LoginForm = () => {
           })
         );
         // showSnackbar("Login successful", "success");
-        navigate(response.role_id === Employee_Id ? "/landingPage" : "*");
+        navigate(response.role_id === Employee_Id ? "/dashboard" : "*");
       } else {
         // showSnackbar("Invalid credentials", "error");
       }

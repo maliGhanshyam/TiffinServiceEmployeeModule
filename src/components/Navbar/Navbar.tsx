@@ -111,11 +111,7 @@ const Navbar = () => {
                 <Button
                   color="inherit"
                   component={Link}
-                  to={
-                    userRoleId === Employee_Id
-                      ? "/superAdminDashboard"
-                      : "/adminDashboard"
-                  }
+                  to="/dashboard"
                   sx={styles.button}
                 >
                   Home
