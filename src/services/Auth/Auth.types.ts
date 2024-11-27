@@ -8,9 +8,10 @@ export interface RegisterData {
   organization_id: string;
   org_location: string;
   role_id: string;
+  employee_id:string;
 }
 export interface RegisterResponse {
-  statuscode: number;
+  statusCode: number;
   message: string;
   token?: string;
 }

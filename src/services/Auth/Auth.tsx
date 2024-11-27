@@ -17,13 +17,14 @@ export const registerAdmin = async ({
   password,
   organization_id,
   org_location,
+  employee_id,
   role_id,
 }: RegisterData): Promise<RegisterResponse> => {
   try {
     const role_specific_details = {
       organization_id: organization_id,
-      approval_status: "pending",
       org_location: org_location,
+      employee_id:employee_id
     };
 
     const response = await axiosInstance.post(`${API_URL}/auth/register`, {
@@ -38,10 +39,10 @@ export const registerAdmin = async ({
 
     // Extract the data from the response
     const { data } = response;
-    const { statuscode, message, token } = data;
+    const { statusCode, message, token } = data;
 
     return {
-      statuscode,
+      statusCode,
       message,
       token,
     };

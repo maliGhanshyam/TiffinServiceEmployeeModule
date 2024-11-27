@@ -3,11 +3,10 @@ import { Organization, OrganizationResponse, OrganizationsResponse } from "./Org
 
 const API_URL = process.env.REACT_APP_API_URL!;
 
-// Fetch all organizations
 export const getOrganizations = async (): Promise<Organization[]> => {
   try {
     const response = await axiosInstance.get<OrganizationsResponse>(
-      `${API_URL}/superadmin/organizations/getallorganization?status=${false}`
+      `${API_URL}/superadmin/organizations/getallOrganizationname`
     );
     return response.data.data;
   } catch (error) {

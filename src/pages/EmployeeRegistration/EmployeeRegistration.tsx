@@ -120,8 +120,8 @@ const EmployeeRegistration = () => {
     onSubmit: async (values, actions) => {
       try {
         const res: RegisterResponse = await registerAdmin(values);
-        if (res.statuscode === 201) {
-          showSnackbar("Admin registered successfully.", "success");
+        if (res.statusCode === 201) {
+          showSnackbar("Employee registered successfully.", "success");
           navigate("/login");
         }
         actions.resetForm();
@@ -156,7 +156,7 @@ const EmployeeRegistration = () => {
               align="center"
               sx={styles.heading}
             >
-              Admin Registration
+              Employee Registration
             </Typography>
             <Box
               component="form"
@@ -384,7 +384,7 @@ const EmployeeRegistration = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={
-                      formik.touched.username && Boolean(formik.errors.employee_id)
+                      formik.touched.employee_id && Boolean(formik.errors.employee_id)
                     }
                     helperText={
                       formik.touched.employee_id && formik.errors.employee_id

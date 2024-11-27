@@ -5,6 +5,9 @@ import { UserLandingPage } from "../pages/landingPage";
 import { LoginForm } from "../pages/LoginPage";
 import CartPage from "../pages/CartPage/CartPage";
 import { EmployeeRegistration } from "../pages/EmployeeRegistration";
+import { Employee_Id } from "../constants/ROLES";
+import { ProfileUpdate } from "../pages/ProfileUpdate";
+import ProtectedRoute from "./ProtectedRoute";
 
 const childRoutes = [
   {
@@ -31,6 +34,12 @@ const childRoutes = [
     path: "/landingPage",
     element: <UserLandingPage />,
   },
+  {
+    path: "update-profile",
+    element: (
+    <ProtectedRoute requiredRole={Employee_Id}><ProfileUpdate/></ProtectedRoute>
+    )
+  }
 ];
 
 export default childRoutes;
