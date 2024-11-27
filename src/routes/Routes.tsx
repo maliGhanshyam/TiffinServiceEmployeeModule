@@ -15,7 +15,11 @@ import UserDashboard from "../pages/dashboard/UserDashboard";
 const childRoutes = [
   {
     path: "login",
-    element: <LoginForm />,
+    element: (
+      <ProtectedRoute guestOnly={true}>
+        <LoginForm />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "register",
@@ -23,7 +27,11 @@ const childRoutes = [
   },
   {
     path: "cart",
-    element: <CartPage />,
+    element: (
+      <ProtectedRoute requiredRole={Employee_Id}>
+        <CartPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "*",
@@ -35,7 +43,11 @@ const childRoutes = [
   },
   {
     path: "/landingPage",
-    element: <UserLandingPage />,
+    element: (
+      <ProtectedRoute requiredRole={Employee_Id}>
+        <UserLandingPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "update-profile",

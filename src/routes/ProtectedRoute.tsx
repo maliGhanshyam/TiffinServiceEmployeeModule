@@ -3,8 +3,8 @@ import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/Store";
 import { setAuthData } from "../store/authSlice";
+import axiosInstance from "../services/CartService/axiosInstance";
 import { Employee_Id } from "../constants/ROLES";
-import axiosInstance from "../services/Organization/axiosInstance";
 const API_URL = process.env.REACT_APP_API_URL;
 interface AuthGuardProps {
   children: ReactNode;
@@ -27,7 +27,6 @@ const ProtectedRoute: FC<AuthGuardProps> = ({
       getUserByToken();
     }
   }, [token, userRoleId, userId, dispatch]);
-
   const getUserByToken = async () => {
     try {
       const response = await axiosInstance.get(
@@ -48,7 +47,9 @@ const ProtectedRoute: FC<AuthGuardProps> = ({
 
   // Redirect logic for guest-only routes
   if (guestOnly && token) {
+    if (userRoleId === Employee_Id) {
       return <Navigate to="/dashboard" replace />;
+    }
   }
 
   // Redirect logic for protected routes
