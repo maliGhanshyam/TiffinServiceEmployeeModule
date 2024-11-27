@@ -4,11 +4,16 @@ import { UserDashboard } from "../pages/dashboard";
 import { UserLandingPage } from "../pages/landingPage";
 import { LoginForm } from "../pages/LoginPage";
 import CartPage from "../pages/CartPage/CartPage";
+import { EmployeeRegistration } from "../pages/EmployeeRegistration";
 
 const childRoutes = [
   {
     path: "login",
     element: <LoginForm />,
+  },
+  {
+    path: "register",
+    element: <EmployeeRegistration />,
   },
   {
     path: "cart",

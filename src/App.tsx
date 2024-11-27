@@ -2,6 +2,7 @@ import "./App.css";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 import { SnackbarProvider } from "./context";
+import { Navbar } from "./components/Navbar";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       className="App"
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
+      <Navbar/>
       <main style={{ flex: 1 }}>
         <SnackbarProvider>
           <Outlet />
