@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, CardActions, Chip, Rating, Tooltip, Typography } from "@mui/material";
+import {
+  Box,
+  CardActions,
+  Chip,
+  Rating,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { TiffinInfoCardProps } from "./TiffinInfoCard.types";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -7,17 +14,18 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import { styles } from "./TiffinInfo.styles";
 import { AddToCartButton } from "../AddToCartButton";
 
-//To avoid repeted code in Retailer cards this component is used
 const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
   tiffin,
-  showButtons = false, 
+  showButtons = false,
   tiffin_quantity,
   onApprove,
   onReject,
-  onTrendy
+  onTrendy,
 }) => {
   const truncate = (description: string) => {
-    return description.length > 25 ? `${description.slice(0, 24)}...` : description;
+    return description.length > 25
+      ? `${description.slice(0, 24)}...`
+      : description;
   };
   // const approvalStatus =
   //   retailer.role_specific_details?.approval[0]?.approval_status;
@@ -26,7 +34,7 @@ const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
   return (
     <Box sx={styles.boxStyle}>
       <Typography variant="h6" sx={styles.titleStyles}>
-      {tiffin.tiffin_name}
+        {tiffin.tiffin_name}
       </Typography>
       <Tooltip title={tiffin.tiffin_description} placement="top">
         <Typography variant="body2" sx={styles.descriptionStyles}>
@@ -40,7 +48,6 @@ const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
           fontWeight: 500,
         }}
       >
-        Rating:
         <Rating
           name="tiffin-rating"
           value={tiffin.tiffin_rating}
@@ -49,8 +56,18 @@ const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
         />
       </Typography>
       <Box sx={styles.fieldsBoxStyles}>
-      <Chip label={`Price: Rs.${tiffin.tiffin_price}`} color="primary" sx={{ fontWeight: 600,marginRight:1 }} />
-      <Chip label={`Qty: ${tiffin.tiffin_available_quantity}`} color="secondary" sx={{ fontWeight: 600 }} />
+        <Chip
+          label={`Price: Rs.${tiffin.tiffin_price}`}
+          variant="outlined"
+          color="primary"
+          sx={{ fontWeight: 600, marginRight: 1 }}
+        />
+        <Chip
+          label={`Qty: ${tiffin.tiffin_available_quantity}`}
+          variant="outlined"
+          color="secondary"
+          sx={{ fontWeight: 600 }}
+        />
       </Box>
       {showButtons && (
         <CardActions sx={styles.cardActionsStyles}>
@@ -65,10 +82,10 @@ const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
             >
               Approve
             </Button> */}
-            <AddToCartButton tiffinId={tiffin.tiffin_id}
-              availableQuantity={tiffin_quantity}
-
-                    />
+          <AddToCartButton
+            tiffinId={tiffin._id}
+            availableQuantity={tiffin.tiffin_available_quantity}
+          />
           {/* )} */}
         </CardActions>
       )}
