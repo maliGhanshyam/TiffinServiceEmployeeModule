@@ -23,6 +23,7 @@ import { Employee_Id } from "../../constants/ROLES";
 import { useSnackbar } from "../../hook";
 import { Theme } from "../materialUI";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -63,18 +64,11 @@ const Navbar = () => {
               <>
               <ListItem
                 component={Link}
-                to="/AddOrganization"
+                to="/orders"
                 sx={styles.listItemStyle}
               >
-                <ListItemText primary="Add Organization" />
+                <ListItemText primary="Orders" />
               </ListItem>
-              <ListItem
-              component={Link}
-              to="/AddOrganization"
-              sx={styles.listItemStyle}
-            >
-              <ListItemText primary="Add Organization" />
-            </ListItem>
             </>
             )}
           </>
@@ -116,16 +110,16 @@ const Navbar = () => {
                 >
                   Home
                 </Button>
-                {token && userRoleId === Employee_Id && (
+                {/* {token && userRoleId === Employee_Id && (
                   <Button
                     color="inherit"
                     component={Link}
-                    to="/AddOrganization"
+                    to="/Cart"
                     sx={styles.button}
                   >
-                    Add Organization
+                    Cart
                   </Button>
-                )}
+                )} */}
               </>
             )}
           </Box>
@@ -143,6 +137,16 @@ const Navbar = () => {
             {location !== "/login" && (
               <>
                 {token && userRoleId === Employee_Id && (
+                  <>
+                  <IconButton
+                  color="inherit"
+                  component={Link}
+                  to="/cart"
+                  sx={styles.cart}
+                >
+                  <ShoppingCartIcon/>
+                  {/* <AccountCircleIcon sx={styles.profileIcon} /> */}
+                </IconButton>
                   <IconButton
                     color="inherit"
                     component={Link}
@@ -151,6 +155,7 @@ const Navbar = () => {
                   >
                     <AccountCircleIcon sx={styles.profileIcon} />
                   </IconButton>
+                  </>
                 )}
                 <Button
                   color="inherit"

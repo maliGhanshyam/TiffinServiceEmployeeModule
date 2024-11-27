@@ -41,6 +41,11 @@ export const styles: { [key: string]: SxProps<Theme> } = {
     height: 40,
     width: 40,
   },
+  cart: {
+    marginRight: { sm: 1, xs: 0 },
+    height: 40,
+    width: 40,
+  }
 };
 
 export const style = {

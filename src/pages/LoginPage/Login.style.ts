@@ -17,7 +17,8 @@ export const styles: { [key: string]: SxProps<Theme> } = {
   },
   heading: {
     fontWeight: "bold",
-    color: "primary.main",
+    // color: "primary.main",
+    color: "#333333",
     fontSize: { xs: "1.4rem", sm: "1.5rem" },
     padding: 2,
   },
