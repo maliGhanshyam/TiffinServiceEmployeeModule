@@ -11,6 +11,7 @@ import { ProfileUpdate } from "../pages/ProfileUpdate";
 import ProtectedRoute from "./ProtectedRoute";
 import RetailerPage from "../pages/RetailerPage/RetailerPage";
 import UserDashboard from "../pages/dashboard/UserDashboard";
+import Order from "../pages/Order/Order";
 
 const childRoutes = [
   {
@@ -40,6 +41,10 @@ const childRoutes = [
   {
     path: "/dashboard",
     element: <UserDashboard />,
+  },
+  {
+    path: "order",
+    element: <Order />,
   },
   {
     path: "/landingPage",
