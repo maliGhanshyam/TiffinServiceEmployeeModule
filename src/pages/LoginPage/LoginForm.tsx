@@ -61,8 +61,6 @@ const LoginForm = () => {
             userId: response._id,
           })
         );
-        console.log(userId, userRoleId, response);
-
         showSnackbar("Login successful", "success");
         navigate(response.role_id === Employee_Id ? "/landingPage" : "*");
       } else {

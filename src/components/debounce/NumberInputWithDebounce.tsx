@@ -8,23 +8,21 @@ const NumberInputWithDebounce = ({
   initialValue: number;
   onUpdateQuantity: (value: number) => void;
 }) => {
-  const [value, setValue] = useState<number>(initialValue); // Local state for user input
-  const [tempValue, setTempValue] = useState<number | string>(initialValue); // For intermediate values
+  const [value, setValue] = useState<number>(initialValue);
+  const [tempValue, setTempValue] = useState<number | string>(initialValue);
 
   // Declare the debounced function type
   const debouncedUpdate = useCallback(
     debounce((val: number) => {
-      console.log("Debounced update triggered with value:", val);
       onUpdateQuantity(val);
     }, 500),
-    [] // Ensure debounce function is stable across renders
+    []
   );
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      console.log("Debounced function cleanup");
-      debouncedUpdate.cancel(); // Ensure cancel method is available
+      debouncedUpdate.cancel();
     };
   }, [debouncedUpdate]);
 
@@ -39,16 +37,14 @@ const NumberInputWithDebounce = ({
 
     const numericValue = Number(inputVal);
     if (!isNaN(numericValue) && numericValue >= 1) {
-      setTempValue(numericValue); // Update displayed value
-      setValue(numericValue); // Update actual value
+      setTempValue(numericValue);
+      setValue(numericValue);
 
-      // Trigger debounced API call
       debouncedUpdate(numericValue);
     }
   };
 
   const handleBlur = () => {
-    // Reset to the last valid value on blur if input is empty
     if (tempValue === "") {
       setTempValue(value);
     }

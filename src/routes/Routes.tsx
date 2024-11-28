@@ -6,6 +6,8 @@ import { LoginForm } from "../pages/LoginPage";
 import CartPage from "../pages/CartPage/CartPage";
 import ProtectedRoute from "./ProtectedRoute";
 import { Employee_Id } from "../constants/ROLES";
+import { Payment } from "../pages/PaymentPage";
+import OrderConfirmation from "../pages/OrderConfirmationPage/OrderConfirmation";
 
 const childRoutes = [
   {
@@ -21,6 +23,22 @@ const childRoutes = [
     element: (
       <ProtectedRoute requiredRole={Employee_Id}>
         <CartPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "payment",
+    element: (
+      <ProtectedRoute requiredRole={Employee_Id}>
+        <Payment />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "order-confirmation",
+    element: (
+      <ProtectedRoute requiredRole={Employee_Id}>
+        <OrderConfirmation />
       </ProtectedRoute>
     ),
   },

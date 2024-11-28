@@ -39,3 +39,28 @@ export const removeTiffinFromCart = async (tiffinId: string): Promise<any> => {
     throw error;
   }
 };
+
+export const placeOrder = async (cartId: string, paymentMode: string) => {
+  try {
+    const response = await axiosInstance.post(
+      `/employees/order/placeorder/${cartId}`,
+      { payment_mode: paymentMode }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error placing the order:", error);
+    throw error;
+  }
+};
+
+export const cancelOrder = async (orderId: string) => {
+  try {
+    const response = await axiosInstance.get(
+      `/employees/cancelorder/${orderId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error canceling the order:", error);
+    throw error;
+  }
+};
