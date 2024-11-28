@@ -64,7 +64,7 @@ const Navbar = () => {
               <>
               <ListItem
                 component={Link}
-                to="/orders"
+                to="/order"
                 sx={styles.listItemStyle}
               >
                 <ListItemText primary="Orders" />

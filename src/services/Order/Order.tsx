@@ -32,7 +32,7 @@ export const getAllOrders = async (
   ) => {
     try {
       const response = await axiosInstance.get(
-        `${API_URL}/retailers/searchorders`,
+        `${API_URL}/employees/searchorders`,
         {
           params: { query, page, limit },
         }
