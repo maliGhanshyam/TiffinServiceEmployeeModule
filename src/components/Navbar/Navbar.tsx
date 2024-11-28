@@ -110,16 +110,14 @@ const Navbar = () => {
                 >
                   Home
                 </Button>
-                {/* {token && userRoleId === Employee_Id && (
-                  <Button
-                    color="inherit"
-                    component={Link}
-                    to="/Cart"
-                    sx={styles.button}
-                  >
-                    Cart
-                  </Button>
-                )} */}
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/order"
+                  sx={styles.button}
+                >
+                  My Orders
+                </Button>
               </>
             )}
           </Box>
