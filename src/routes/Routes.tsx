@@ -8,6 +8,7 @@ import { EmployeeRegistration } from "../pages/EmployeeRegistration";
 import { Employee_Id } from "../constants/ROLES";
 import { ProfileUpdate } from "../pages/ProfileUpdate";
 import ProtectedRoute from "./ProtectedRoute";
+import Order from "../pages/Order/Order";
 
 const childRoutes = [
   {
@@ -29,6 +30,10 @@ const childRoutes = [
   {
     path: "",
     element: <UserDashboard />,
+  },
+  {
+    path: "order",
+    element: <Order />,
   },
   {
     path: "/landingPage",
