@@ -8,19 +8,22 @@ import {
   Typography,
 } from "@mui/material";
 import { TiffinInfoCardProps } from "./TiffinInfoCard.types";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import DeleteIcon from "@mui/icons-material/Delete";
-import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+// import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+// import DeleteIcon from "@mui/icons-material/Delete";
+// import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import { styles } from "./TiffinInfo.styles";
 import { AddToCartButton } from "../AddToCartButton";
+// import RiceBowlIcon from "@mui/icons-material/RiceBowl";
+import AdjustIcon from "@mui/icons-material/Adjust";
+// import FastfoodIcon from "@mui/icons-material/Fastfood";
 
 const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
   tiffin,
   showButtons = false,
-  tiffin_quantity,
-  onApprove,
-  onReject,
-  onTrendy,
+  // tiffin_quantity,
+  // onApprove,
+  // onReject,
+  // onTrendy,
 }) => {
   const truncate = (description: string) => {
     return description.length > 25
@@ -41,6 +44,11 @@ const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
           {truncate(tiffin.tiffin_description)}
         </Typography>
       </Tooltip>
+      {tiffin.tiffin_type === "veg" ? (
+        <AdjustIcon color="success" />
+      ) : (
+        <AdjustIcon color="error" />
+      )}
       <Typography
         variant="body2"
         sx={{

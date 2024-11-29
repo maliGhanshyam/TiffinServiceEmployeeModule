@@ -72,7 +72,7 @@
 //           marginTop: "20px",
 //         }}
 //       >
-//        <Explore sx={{ marginRight: "8px" }} /> 
+//        <Explore sx={{ marginRight: "8px" }} />
 //         <Typography variant="h5" sx={{ fontWeight: 600 }}>
 //           Explore Our Tiffins
 //         </Typography>
@@ -91,11 +91,11 @@
 //             />
 //           </ActionCard>
 //         )}
-//       </CardSlider>      
+//       </CardSlider>
 //         </Grid2>
 //       <Grid2 size={12} sx={{marginBottom:3}}>
 //         <Box sx={{ display: "flex", alignItems: "center", marginLeft: "70px", marginTop: "40px"}}>
-//           <Storefront sx={{ marginRight: "8px" }} /> 
+//           <Storefront sx={{ marginRight: "8px" }} />
 //           <Typography variant="h5" sx={{ fontWeight: 600 }}>
 //             Our Retail Partners
 //           </Typography>
@@ -119,7 +119,6 @@
 
 // export default UserDashboard;
 
-
 // WIth filters
 import React, { useEffect, useState } from "react";
 import {
@@ -135,14 +134,15 @@ import { styles } from "./UserDashboard.styles";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import RetailerInfoCard from "../../components/retailerInfoCard/RetailerInfoCard";
-import { Box, Grid2, Typography, Tabs, Tab } from "@mui/material";
+import { Box, Grid2, Typography, Tabs, Tab, Button } from "@mui/material";
 import { Explore, Storefront } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const UserDashboard = () => {
   const [tiffins, setTiffins] = useState<tiffin[]>([]);
   const [retailers, setRetailers] = useState<UserData[]>([]);
   const [selectedSort, setSelectedSort] = useState("rating"); // Sorting option for Tiffins
-
+  const navigate = useNavigate();
   const tiffin_quantity = 1;
 
   // Fetch functions
@@ -181,6 +181,10 @@ const UserDashboard = () => {
     return 0;
   });
 
+  const handleShowAllTiffins = () => {
+    navigate(`/allTiffins`);
+  };
+
   // Fetch data on mount
   useEffect(() => {
     fetchRetailerTiffins();
@@ -191,7 +195,14 @@ const UserDashboard = () => {
     <>
       {/* Explore Tiffins Section */}
       <Grid2 size={12} sx={{ marginBottom: 3 }}>
-        <Box sx={{ display: "flex", alignItems: "center", marginLeft: "70px", marginTop: "20px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            marginLeft: "70px",
+            marginTop: "20px",
+          }}
+        >
           <Explore sx={{ marginRight: "8px" }} />
           <Typography variant="h5" sx={{ fontWeight: 600 }}>
             Explore Our Tiffins
@@ -199,22 +210,47 @@ const UserDashboard = () => {
         </Box>
 
         {/* Sort Tab for Tiffins */}
-        <Tabs
-          value={selectedSort}
-          onChange={handleSortChange}
-          textColor="primary"
-          indicatorColor="primary"
-          sx={{ marginBottom: 1,marginLeft:10 }}
-        >
-          <Tab value="rating" label="Rating" />
-          <Tab value="veg" label="Veg" />
-          <Tab value="nonveg" label="Non-Veg" />
-        </Tabs>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
 
+            mr: 7,
+          }}
+        >
+          <Tabs
+            value={selectedSort}
+            onChange={handleSortChange}
+            textColor="primary"
+            indicatorColor="primary"
+            sx={{ marginBottom: 1, marginLeft: 10 }}
+          >
+            <Tab value="rating" label="Rating" />
+            <Tab value="veg" label="Veg" />
+            <Tab value="nonveg" label="Non-Veg" />
+          </Tabs>
+
+          <Button
+            variant="text"
+            size="large"
+            sx={{ marginTop: 4 }}
+            onClick={handleShowAllTiffins}
+          >
+            View All
+          </Button>
+        </Box>
         <CardSlider data={sortedTiffins}>
           {(tiff) => (
-            <ActionCard sx={styles.cardStyles} imageUrl={tiff.tiffin_image_url} imageStyles={styles.cardMediaStyles}>
-              <TiffinInfoCard tiffin={tiff} showButtons={true} tiffin_quantity={tiffin_quantity} />
+            <ActionCard
+              sx={styles.cardStyles}
+              imageUrl={tiff.tiffin_image_url}
+              imageStyles={styles.cardMediaStyles}
+            >
+              <TiffinInfoCard
+                tiffin={tiff}
+                showButtons={true}
+                tiffin_quantity={tiffin_quantity}
+              />
             </ActionCard>
           )}
         </CardSlider>
@@ -222,7 +258,14 @@ const UserDashboard = () => {
 
       {/* Retailers Section */}
       <Grid2 size={12} sx={{ marginBottom: 3 }}>
-        <Box sx={{ display: "flex", alignItems: "center", marginLeft: "70px", marginTop: "40px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            marginLeft: "70px",
+            marginTop: "40px",
+          }}
+        >
           <Storefront sx={{ marginRight: "8px" }} />
           <Typography variant="h5" sx={{ fontWeight: 600 }}>
             Our Retail Partners
@@ -244,7 +287,11 @@ const UserDashboard = () => {
 
         <CardSlider data={retailers}>
           {(retail) => (
-            <ActionCard sx={styles.cardStyles} imageUrl={retail.user_image} imageStyles={styles.cardMediaStyles}>
+            <ActionCard
+              sx={styles.cardStyles}
+              imageUrl={retail.user_image}
+              imageStyles={styles.cardMediaStyles}
+            >
               <RetailerInfoCard retailer={retail} showButtons={true} />
             </ActionCard>
           )}
@@ -255,4 +302,3 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
-
