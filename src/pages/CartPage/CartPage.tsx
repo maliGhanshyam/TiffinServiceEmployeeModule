@@ -96,7 +96,10 @@ const CartPage: React.FC = () => {
                     {/* Image */}
                     <Grid2 size={{ xs: 3 }}>
                       <img
-                        src={item.tiffin_image_url}
+                        src={
+                          item.tiffin_image_url ||
+                          "https://res.cloudinary.com/dvtyyjpeo/image/upload/v1732857522/tiffin_image/c7eevh1rgefd3zpovxxl.jpg"
+                        }
                         alt={item.tiffin_name}
                         style={{ width: "100%" }}
                       />
