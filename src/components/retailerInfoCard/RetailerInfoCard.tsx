@@ -15,8 +15,7 @@ const RetailerInfoCard: React.FC<RetailerInfoCardProps> = ({
   };
 
   const handleShowRetailer = () => {
-    
-    navigate(`/retailerpage/${retailer._id}`); 
+    navigate(`/retailerpage/${retailer._id}`);
   };
 
   return (
@@ -38,7 +37,6 @@ const RetailerInfoCard: React.FC<RetailerInfoCardProps> = ({
           fontWeight: 500,
         }}
       >
-        Retailer Rating:
         <Rating
           name="retailer-rating"
           value={retailer.role_specific_details?.retailer_rating || 0}
