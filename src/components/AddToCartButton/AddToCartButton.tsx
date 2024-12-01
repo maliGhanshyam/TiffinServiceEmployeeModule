@@ -4,6 +4,7 @@ import { Button, TextField, Box, Snackbar } from "@mui/material";
 import axiosInstance from "../../services/axiosinstance";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { addTiffinToCart } from "../../services/AllTiffin/AddToCart";
+import { useSnackbar } from "../../hook";
 
 interface AddToCartButtonProps {
   tiffinId: string;
@@ -14,22 +15,20 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   tiffinId,
   availableQuantity,
 }) => {
-  console.log("tiffinId: ", tiffinId);
-  console.log("availableQuantity", availableQuantity);
-
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
+  const {showSnackbar}=useSnackbar();
   const handleAddTiffinToCart = async (tiffinId: string, quantity: number) => {
     try {
+      if(quantity>0){
       const response = await addTiffinToCart(tiffinId, quantity);
-      console.log("Tiffin added to cart successfully:", response);
-      setSuccessMessage("Tiffin added to cart successfully!");
+      showSnackbar("Tiffin added to cart successfully!","success");
+      }else
+      showSnackbar("Please select a quantity before adding to cart.", "error");
     } catch (err: unknown) {
-      console.error("Error adding tiffin to cart:", err);
-      setError("Failed to add tiffin to cart.");
+      showSnackbar("Items from different retailers can't be in the same cart.", "error");
     }
   };
 
@@ -69,6 +68,9 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
           height: "45px", // Set fixed height for consistency
         }}
         margin="normal"
+        InputLabelProps={{
+          style: { fontSize: '0.85rem' },
+        }}
       />
 
       {/* Add to Cart Button */}
@@ -77,7 +79,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
         color="primary"
         size="small"
         onClick={handleAddToCart}
-        disabled={loading || quantity <= 0 || quantity > availableQuantity}
+        disabled={loading || quantity < 0 || quantity > availableQuantity}
         sx={{
           height: "40px",
         }}
