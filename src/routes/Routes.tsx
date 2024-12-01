@@ -14,6 +14,8 @@ import RetailerPage from "../pages/RetailerPage/RetailerPage";
 import UserDashboard from "../pages/dashboard/UserDashboard";
 import Order from "../pages/Order/Order";
 import LandingPageTiffins from "../pages/LandingPageTiffins/LandingPageTiffins";
+import { Payment } from "../pages/PaymentPage";
+import OrderConfirmation from "../pages/OrderConfirmationPage/OrderConfirmation";
 
 const childRoutes = [
   {
@@ -33,6 +35,22 @@ const childRoutes = [
     element: (
       <ProtectedRoute requiredRole={Employee_Id}>
         <CartPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "payment",
+    element: (
+      <ProtectedRoute requiredRole={Employee_Id}>
+        <Payment />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "order-confirmation",
+    element: (
+      <ProtectedRoute requiredRole={Employee_Id}>
+        <OrderConfirmation />
       </ProtectedRoute>
     ),
   },
