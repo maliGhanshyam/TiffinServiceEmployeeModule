@@ -60,19 +60,41 @@ export const getAllRetailersofOrg = async (): Promise<UserData[]> => {
   return response.data.data;
 };
 
-export const getAllTiffinsByRetailer = async (): Promise<tiffin[]> => {
-  console.log("Start");
-  // const response = await axiosInstance.get(
-  //   `${API_URL}/employees/getalltiffinsbyretailer/:retailer_id`
-  // );
-  const response = await axiosInstance.get(
-    `${API_URL}/employees/getalltiffinsbyretailer/${"674014ab32de315575386a3d"}`
-  );
-  console.log(response);
-  console.log("end");
+// export const getAllTiffinsByRetailer = async (): Promise<tiffin[]> => {
+//   console.log("Start");
+//   // const response = await axiosInstance.get(
+//   //   `${API_URL}/employees/getalltiffinsbyretailer/:retailer_id`
+//   // );
+//   const response = await axiosInstance.get(
+//     `${API_URL}/employees/getalltiffinsbyretailer/${"674014ab32de315575386a3d"}`
+//   );
+//   console.log(response);
+//   console.log("end");
 
-  return response.data.data;
+//   return response.data.data;
+// };
+
+export const getAllTiffinsByRetailer = async (
+  retailerId: string
+): Promise<tiffin[]> => {
+  try {
+    console.log("Start");
+
+    // Dynamically include retailerId in the URL
+    const response = await axiosInstance.get(
+      `${API_URL}/employees/getalltiffinsbyretailer/${retailerId}`
+    );
+
+    console.log(response);
+    console.log("End");
+
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching tiffins:", error);
+    throw error; // Rethrow the error to handle it in the calling function
+  }
 };
+
 
 // /api/employees/getallretailersoforg
 // /api/employees/getallretailersoforg
