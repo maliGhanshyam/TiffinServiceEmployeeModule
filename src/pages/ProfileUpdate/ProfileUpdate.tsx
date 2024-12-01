@@ -31,7 +31,7 @@ const ProfileUpdate = () => {
   const [organization, setOrganization] = useState<Organization[]>([]);
   const [userData, setUserData] = useState<User>();
   const [image, setImage] = useState<File | null>(null);
-  const [image1, setImage1] = useState<string>("");
+  const [imagePreview, setImagePreview] = useState<string>(""); // image preview
   const [selectedOrganizationLoc, setSelectedOrganizationLoc] = useState("");
   const [organizationLoc, setOrganizationLoc] = useState<OrganizationLoc[]>([]);
   const userId = useSelector((state: RootState) => state.auth.userId);
@@ -92,7 +92,7 @@ const ProfileUpdate = () => {
       setSelectedOrganizationLoc(
         userData.role_specific_details?.org_location || ""
       );
-      setImage1(userData.user_image || "");
+      setImagePreview(userData.user_image || "");
 
       formik.setFieldValue("username", userData.username || "");
       formik.setFieldValue("email", userData.email || "");
@@ -106,14 +106,13 @@ const ProfileUpdate = () => {
         "org_location",
         userData.role_specific_details?.org_location || ""
       );
-      formik.setFieldValue("user_image", userData.user_image || "");
     }
   }, [userData]);
 
   const formik = useFormik({
     enableReinitialize: true, // Reinitialize Formik when userData changes
     initialValues: {
-      user_image: image1 || "",
+      user_image: imagePreview || "",
       username: userData?.username || "",
       email: userData?.email || "",
       contact_number: userData?.contact_number || "",
@@ -162,6 +161,9 @@ const ProfileUpdate = () => {
     const file = event.target.files?.[0]; // first file selected
     if (file) {
       setImage(file);
+     //preview of the selected image
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl); // Update preview state with new image
     }
   };
   const handleImageUpload = async () => {
@@ -171,7 +173,8 @@ const ProfileUpdate = () => {
     }
     try {
       const res = await uploadUserImage(image!);
-      setImage1(res.image);
+      // setImage1(res.image);
+      setImagePreview(res.image); // Update image preview after upload
       setUserData((prevUserData: any) => ({
         ...prevUserData,
         user_image: res.image, // Update userData directly instead of fetchUserData
@@ -233,41 +236,26 @@ const ProfileUpdate = () => {
                     style={{ display: "none" }}
                     id="profile-image-upload"
                   />
-                  {userData ? (
                     <img
-                      src={
-                        userData.user_image || "https://via.placeholder.com/150"
-                      }
-                      alt="profile"
-                      onClick={() =>
-                        document.getElementById("profile-image-upload")?.click()
-                      }
-                      style={{
-                        width: 100,
-                        height: 100,
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        cursor: "pointer",
-                      }}
-                    />
-                  ) : (
-                    <img
-                      src="https://via.placeholder.com/150"
-                      alt="placeholder"
-                      style={{
-                        width: 100,
-                        height: 100,
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  )}
+                    src={imagePreview || "https://via.placeholder.com/150"}
+                    alt="profile"
+                    onClick={() =>
+                      document.getElementById("profile-image-upload")?.click()
+                    }
+                    style={{
+                      width: 100,
+                      height: 100,
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                    }}
+                  />
 
                   <Button
                     onClick={handleImageUpload}
                     size="small"
                     variant="contained"
-                    color="info"
+                    color="primary"
                     sx={{ paddingX: "28px" }}
                   >
                     Upload
