@@ -1,4 +1,4 @@
-import { Cart, CartResponse } from "../../types/Cart";
+import { Cart, CartResponse } from "../../Types/Cart";
 import axiosInstance from "./axiosInstance";
 
 export const getAllCart = async (): Promise<Cart[]> => {

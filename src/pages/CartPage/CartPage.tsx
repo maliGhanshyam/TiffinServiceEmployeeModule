@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, Grid2, Button, Divider } from "@mui/material";
-import { Cart } from "../../types/Cart";
+import { Cart } from "../../Types/Cart";
 import {
   getAllCart,
   removeTiffinFromCart,
