@@ -44,11 +44,12 @@ const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
           {truncate(tiffin.tiffin_description)}
         </Typography>
       </Tooltip>
-      {tiffin.tiffin_type === "veg" ? (
+      <Typography>{tiffin.retailer_id.username}</Typography>
+      {/* {tiffin.tiffin_type === "veg" ? (
         <AdjustIcon color="success" />
       ) : (
         <AdjustIcon color="error" />
-      )}
+      )} */}
       <Typography
         variant="body2"
         sx={{
@@ -67,13 +68,11 @@ const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
         <Chip
           label={`Price: Rs.${tiffin.tiffin_price}`}
           variant="outlined"
-          color="primary"
-          sx={{ fontWeight: 600, marginRight: 1 }}
+          sx={{ fontWeight: 600, marginRight: 2 }}
         />
         <Chip
           label={`Qty: ${tiffin.tiffin_available_quantity}`}
           variant="outlined"
-          color="secondary"
           sx={{ fontWeight: 600 }}
         />
       </Box>

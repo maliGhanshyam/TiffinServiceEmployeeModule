@@ -6,7 +6,7 @@ export interface tiffin {
   tiffin_available_quantity: number;
   tiffin_description: string;
   retailer_id: string;
-  tiffin_type: ["veg", "non-veg"];
+  tiffin_type: string;
   tiffin_price: number;
   tiffin_rating: number;
   tiffin_isavailable: boolean;
@@ -14,4 +14,12 @@ export interface tiffin {
   tiffin_updated_at: Date;
   isActive: boolean;
   __v: number;
+}
+
+//api response 
+export interface ApiResponse {
+  statusCode: number;
+  success: boolean;
+  message: string;
+  data: [];
 }

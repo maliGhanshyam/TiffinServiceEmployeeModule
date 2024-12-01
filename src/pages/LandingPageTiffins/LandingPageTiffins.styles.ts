@@ -20,18 +20,8 @@ export const styles: { [key: string]: SxProps<Theme> } = {
     textAlign: "center",
     padding:"15px"
   },
-  buttonStyleSeeAll: {
-    variant: "contained",
-    marginTop:1,
-    borderRadius: "1.2rem",
-    borderColor: "primary.main",
-    color: "primary.main",
-    padding: "5px 16px",
-    fontWeight: "bold",
-    "&:hover": {
-      backgroundColor: "#e43e38",
-      color: "#fff",
-    },
+  innerCardContainerStyleAR: {
+    minWidth: 320,
   },
 };
 

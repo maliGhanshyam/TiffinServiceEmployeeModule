@@ -52,7 +52,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
     <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
       {/* Quantity Input */}
       <TextField
-        label="Quantity"
+        label="Qty"
         type="number"
         // value={quantity}
         size="small"

@@ -13,6 +13,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import RetailerPage from "../pages/RetailerPage/RetailerPage";
 import UserDashboard from "../pages/dashboard/UserDashboard";
 import Order from "../pages/Order/Order";
+import LandingPageTiffins from "../pages/LandingPageTiffins/LandingPageTiffins";
 
 const childRoutes = [
   {
@@ -67,7 +68,11 @@ const childRoutes = [
   },{
     path: `/allTiffins`,
     element: <AllTiffins/>
-  }
+  },
+  {
+    path: "viewAllTiffins",
+    element: <LandingPageTiffins />,
+  },
 ];
 
 export default childRoutes;

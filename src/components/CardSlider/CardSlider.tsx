@@ -7,8 +7,8 @@ import { styles } from "./CardSlider.styles";
 const CardSlider = <T extends { _id: string }>({ data, children, settings }: CardSliderProps<T>) => {
   const isSingleItem = data.length === 1;
   const defaultSettings = {
-    infinite: false,
-    speed: 500,
+    infinite: true, // Enable infinite loop
+    speed: 500, // Transition speed
     slidesToShow: 4,
     slidesToScroll: 2,
     dots: true,
@@ -42,13 +42,12 @@ const CardSlider = <T extends { _id: string }>({ data, children, settings }: Car
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
+          slidesToScroll: 1,
+        },
+      },
     ],
     ...settings,
   };
-
   return (
     <Box sx={styles.boxContainerStyles}>
       <Slider {...defaultSettings}>

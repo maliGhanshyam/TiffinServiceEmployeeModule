@@ -5,4 +5,5 @@ export interface ActionCardProps{
   sx?:SxProps<Theme>
   imageUrl?: string; 
   imageStyles?: SxProps<Theme>;
+  tiffinType?:string;
 }
