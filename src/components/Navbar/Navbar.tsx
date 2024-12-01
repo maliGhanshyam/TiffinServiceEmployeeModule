@@ -134,7 +134,7 @@ const Navbar = () => {
             )}
             {location !== "/login" && (
               <>
-                {token && userRoleId === Employee_Id && (
+                {token && (
                   <>
                   <IconButton
                   color="inherit"
