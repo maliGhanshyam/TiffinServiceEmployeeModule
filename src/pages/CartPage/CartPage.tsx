@@ -117,14 +117,21 @@ const CartPage: React.FC = () => {
                           justifyContent: "space-between",
                         }}
                       >
-                        <Typography variant="h6" sx={{ marginBottom: "10px" }}>
+                        <Typography
+                          variant="h6"
+                          sx={{ marginBottom: "10px", fontSize: "1.5rem" }}
+                        >
                           {item.tiffin_name}
                         </Typography>
 
                         <Typography
                           variant="body2"
                           color="text.secondary"
-                          sx={{ marginBottom: "10px" }}
+                          sx={{
+                            marginBottom: "10px",
+                            fontWeight: "600",
+                            fontSize: "1.5rem",
+                          }}
                         >
                           ₹{item.price.toFixed(2)}
                         </Typography>
@@ -136,7 +143,7 @@ const CartPage: React.FC = () => {
                             marginBottom: "10px",
                             display: "flex",
                             alignItem: "left",
-                            fontSize: "1.3 rem",
+                            fontSize: "1.25rem",
                           }}
                         >
                           {item.tiffin_description}
