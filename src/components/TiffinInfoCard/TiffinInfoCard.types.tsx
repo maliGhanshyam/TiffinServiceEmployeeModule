@@ -1,5 +1,7 @@
+import { tiffin } from "../../services/AllTiffin/AllTiffin.types";
+
 export interface TiffinInfoCardProps {
-  tiffin: any;
+  tiffin: tiffin;
   showButtons?: boolean;
   tiffin_quantity:number;
   onApprove?: (retailerId: string) => void;

@@ -16,6 +16,7 @@ import Order from "../pages/Order/Order";
 import LandingPageTiffins from "../pages/LandingPageTiffins/LandingPageTiffins";
 import { Payment } from "../pages/PaymentPage";
 import OrderConfirmation from "../pages/OrderConfirmationPage/OrderConfirmation";
+import { Navigate } from "react-router-dom";
 
 const childRoutes = [
   {
@@ -90,6 +91,10 @@ const childRoutes = [
   {
     path: "viewAllTiffins",
     element: <LandingPageTiffins />,
+  },
+  {
+    path: "",
+    element: <Navigate to="login" />,
   },
 ];
 

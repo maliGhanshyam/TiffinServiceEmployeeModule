@@ -3,8 +3,9 @@ import { SxProps, Theme } from "@mui/material";
 export const styles: { [key: string]: SxProps<Theme> } = {
   paginationStyles: {
     display: "flex",
-    justifyContent: "end",
+    justifyContent: {sm:"end",xs:"center"},
     mt: 3,
-    marginRight: 6,
+    marginRight: {sm:6,xs:0},
+    marginBottom:2
   },
 };

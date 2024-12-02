@@ -25,6 +25,22 @@ export const getAllTiffins = async (
   throw error;
 }
 };
+//search Tifffins with type
+export const searchTiffinWithType = async (
+  query: string,
+): Promise<tiffin[]> => {
+  try {
+    const response = await axiosInstance.get<ApiResponse>(
+      `${API_URL}/employees/searchTiffinItem?query=${encodeURIComponent(
+        query
+      )}`
+    );
+    return response.data.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 //get all tiffins with pagination and sorting
 export const getAllTiffinsSort = async (
   page?: number,

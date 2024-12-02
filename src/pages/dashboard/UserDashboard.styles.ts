@@ -33,5 +33,19 @@ export const styles: { [key: string]: SxProps<Theme> } = {
       color: "#fff",
     },
   },
+  tabStyle:{
+    marginLeft: { sm: 10, xs: 9 },
+    fontWeight: "bold",
+    "& .MuiTab-root": {
+      fontSize: { xs: "14px", sm: "14px" },
+      padding: { xs: "5px 10px", sm: "8px 16px" },
+      minWidth: { sm: "90px", xs: "50px" },
+      textTransform: "none",
+    },
+    "& .Mui-selected": {
+      color: "secondary.main",
+      fontWeight: "bold",
+    },
+  }
 };
 

@@ -12,13 +12,13 @@ const TiffinCard: React.FC<TiffinCardProps> = ({
   onReject,
   showButtons = false,
 }) => {
-  const style = showButtons ? styles.innerCardContainerStyle : styles.innerCardContainerStyleAR;
   return (
-    <Box sx={style}>
+    <Box sx={styles.innerCardContainerStyle}>
       <ActionCard
         sx={styles.cardStyles}
         imageUrl={tiffin.user_image!}
         imageStyles={styles.cardMediaStyles}
+        tiffinType={tiffin.tiffin_type}
       >
         <TiffinInfoCard
           tiffin={tiffin}

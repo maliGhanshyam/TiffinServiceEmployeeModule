@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { tiffin } from "../../Types";
 import { getAllTiffinsByRetailer } from "../../services/AllTiffin/AllTiffin";
+import { tiffin } from "../../services/AllTiffin/AllTiffin.types";
 
 interface RetailerPageProps {}
 

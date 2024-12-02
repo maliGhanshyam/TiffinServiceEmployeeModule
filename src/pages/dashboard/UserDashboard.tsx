@@ -27,7 +27,7 @@ const UserDashboard = () => {
   // Fetch functions
   const fetchRetailerTiffins = async (sortType: string) => {
     try {
-      const data = await getAllTiffins(sortType);  // Passing sort type to API
+      const data = await getAllTiffins(sortType); // Passing sort type to API
       setTiffins(data);
     } catch (error) {
       console.error("Error fetching tiffins:", error);
@@ -46,7 +46,7 @@ const UserDashboard = () => {
   // Handle the sort change
   const handleSortChange = (event: React.ChangeEvent<{}>, newValue: string) => {
     setSelectedSort(newValue);
-    fetchRetailerTiffins(newValue);  // Fetch sorted data when sort option changes
+    fetchRetailerTiffins(newValue); // Fetch sorted data when sort option changes
   };
 
   const handleShowAllTiffins = () => {
@@ -55,9 +55,9 @@ const UserDashboard = () => {
 
   // Fetch data on mount
   useEffect(() => {
-    fetchRetailerTiffins(selectedSort);  // Fetch tiffins initially based on default sort (rating)
+    fetchRetailerTiffins(selectedSort); // Fetch tiffins initially based on default sort (rating)
     fetchRetailersOfOrg();
-  }, [selectedSort]);  // Trigger fetch when sort changes
+  }, [selectedSort]); // Trigger fetch when sort changes
 
   return (
     <>
@@ -90,28 +90,24 @@ const UserDashboard = () => {
             onChange={handleSortChange}
             textColor="primary"
             indicatorColor="primary"
-            sx={{ marginLeft: 10,fontWeight: "bold"}}
+            sx={styles.tabStyle}
           >
             <Tab value="" label="Rating" />
             <Tab value="veg" label="Veg" />
             <Tab value="non-veg" label="Non-Veg" />
           </Tabs>
-
-          {/* <Button
-            variant="text"
-            size="large"
-            sx={{ marginTop: 1 }}
-            onClick={handleShowAllTiffins}
-          >
-            View All
-          </Button> */}
-           <Button
+          <Button
             sx={styles.buttonStyleSeeAll}
             variant="outlined"
             onClick={handleShowAllTiffins}
-            startIcon={<VisibilityIcon />}
           >
-            View all
+            <VisibilityIcon
+              sx={{
+                display: { xs: "none", sm: "inline-block" },
+                marginRight: "10px",
+              }}
+            />
+            View All
           </Button>
         </Box>
 

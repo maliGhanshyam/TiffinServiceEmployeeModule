@@ -25,3 +25,12 @@ export const styles: { [key: string]: SxProps<Theme> } = {
   },
 };
 
+export const noDataImgStyle = {
+  width: "100%",
+  maxWidth: "60%",
+  height: "auto",
+  marginLeft: "auto",
+  marginRight: "auto",
+  display: "block",
+};
+

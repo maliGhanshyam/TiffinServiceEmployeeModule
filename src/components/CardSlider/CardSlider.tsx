@@ -1,14 +1,13 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Box, Theme, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
 import Slider from "react-slick";
 import { CardSliderProps } from "./CardSlider.types";
 import { styles } from "./CardSlider.styles";
 
 const CardSlider = <T extends { _id: string }>({ data, children, settings }: CardSliderProps<T>) => {
-  const isSingleItem = data.length === 1;
-  const defaultSettings = {
-    infinite: true, // Enable infinite loop
-    speed: 500, // Transition speed
+    const defaultSettings = {
+    infinite: true, 
+    speed: 500, 
     slidesToShow: 4,
     slidesToScroll: 2,
     dots: true,

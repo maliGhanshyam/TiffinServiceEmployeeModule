@@ -11,7 +11,7 @@ export const styles: { [key: string]: SxProps<Theme> } = {
     flexDirection: "column",
     alignItems: "center",
     padding: 3,
-    backgroundColor: "#fff",
+    backgroundColor: "#ecf0f1",
     borderRadius: 2,
     boxShadow: 3,
   },

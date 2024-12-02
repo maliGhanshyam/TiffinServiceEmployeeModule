@@ -1,2 +1,2 @@
 export const DEFAULT_IMAGE_PROFILE ="https://avatar.iran.liara.run/public/boy?username=Ash";
-export const DEFAULT_IMAGE_CARD="https://picsum.photos/200/300/?blur";
+export const DEFAULT_IMAGE_CARD="https://fastly.picsum.photos/id/999/4000/2667.jpg?hmac=mTyBy8HWG_rqFam5j6PDtddQR2yBgA_EGhHdzx_SyPw";
