@@ -64,3 +64,15 @@ export const cancelOrder = async (orderId: string) => {
     throw error;
   }
 };
+
+export const clearCart = async (cartId: string) => {
+  try {
+    const response = await axiosInstance.delete(
+      `/employees/cart/removecart/${cartId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("error removing cart", error);
+    throw error;
+  }
+};

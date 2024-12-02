@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSnackbar } from "../../hook";
-import { placeOrder } from "../../services/CartService/Cart";
+import { placeOrder, clearCart } from "../../services/CartService/Cart";
 
 type CartItem = {
   tiffin_name: string;
@@ -39,6 +39,7 @@ const Payment = () => {
       const orderData = data.data;
       if (data?.success) {
         showSnackbar("Order placed successfully!", "success");
+        handleClearCart();
         navigate("/order-confirmation", { state: orderData });
       } else {
         showSnackbar("Failed to place order.", "error");
@@ -46,6 +47,17 @@ const Payment = () => {
     } catch (error) {
       console.error("Error placing order:", error);
       showSnackbar("An error occurred while placing the order.", "error");
+    }
+  };
+  const handleClearCart = async () => {
+    if (!cartId) {
+      showSnackbar("Cart ID is missing!", "error");
+      return;
+    }
+    try {
+      const data = await clearCart(cartId);
+    } catch (error) {
+      console.error("Error clearing cart:", error);
     }
   };
 

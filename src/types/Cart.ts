@@ -4,6 +4,7 @@ export interface CartItem {
   price: number;
   tiffin_name: string;
   tiffin_image_url: string;
+  tiffin_description: string;
   _id: string;
 }
 

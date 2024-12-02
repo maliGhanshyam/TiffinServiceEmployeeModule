@@ -8,6 +8,7 @@ import {
 } from "../../services/CartService/Cart";
 import NumberInputWithDebounce from "../../components/debounce/NumberInputWithDebounce";
 import { useNavigate } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const CartPage: React.FC = () => {
   const [cartData, setCartData] = useState<Cart[]>([]);
@@ -119,6 +120,7 @@ const CartPage: React.FC = () => {
                         <Typography variant="h6" sx={{ marginBottom: "10px" }}>
                           {item.tiffin_name}
                         </Typography>
+
                         <Typography
                           variant="body2"
                           color="text.secondary"
@@ -127,7 +129,19 @@ const CartPage: React.FC = () => {
                           ₹{item.price.toFixed(2)}
                         </Typography>
                       </div>
-                      <Box display="flex" alignItems="center">
+                      <div>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            marginBottom: "10px",
+                            display: "flex",
+                            alignItem: "left",
+                          }}
+                        >
+                          {item.tiffin_description}
+                        </Typography>
+                      </div>
+                      <Box display="flex" alignItems="center" flex="1">
                         <NumberInputWithDebounce
                           initialValue={item.quantity}
                           onUpdateQuantity={(newQuantity) =>
@@ -135,7 +149,10 @@ const CartPage: React.FC = () => {
                           }
                         />
                         <Button
-                          color="error"
+                          variant="outlined"
+                          startIcon={<DeleteIcon />}
+                          size="small"
+                          sx={{ marginLeft: "5px" }}
                           onClick={() => handleRemoveItem(item.tiffin_id)}
                         >
                           Delete
