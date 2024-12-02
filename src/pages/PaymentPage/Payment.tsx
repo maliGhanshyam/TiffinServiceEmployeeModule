@@ -62,7 +62,9 @@ const Payment = () => {
   };
 
   return (
-    <Box sx={{ p: 4, maxWidth: "800px", margin: "auto" }}>
+    <Box
+      sx={{ p: 4, maxWidth: "800px", margin: "auto", backgroundColor: "snow" }}
+    >
       <Typography variant="h5" mb={"20px"}>
         Order Summary
       </Typography>

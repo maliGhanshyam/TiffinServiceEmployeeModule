@@ -42,6 +42,7 @@ const OrderConfirmation = () => {
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
         borderRadius: "12px",
         mt: 5,
+        backgroundColor: "snow",
       }}
     >
       {/* Success Icon */}

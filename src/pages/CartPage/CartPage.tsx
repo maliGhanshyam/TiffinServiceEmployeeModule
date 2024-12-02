@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, Grid2, Button, Divider } from "@mui/material";
-import { Cart } from "../../types/Cart";
+import { Cart } from "../../Types/Cart";
 import {
   getAllCart,
   removeTiffinFromCart,
@@ -68,7 +68,7 @@ const CartPage: React.FC = () => {
   const subtotal = cartData.length > 0 ? cartData[0].total_amount : 0;
 
   return (
-    <Box sx={{ padding: "20px" }}>
+    <Box sx={{ padding: "20px", backgroundColor: "snow" }}>
       <Typography variant="h4" sx={{ marginBottom: "20px" }}>
         Cart
       </Typography>
