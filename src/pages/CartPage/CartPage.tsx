@@ -136,6 +136,7 @@ const CartPage: React.FC = () => {
                             marginBottom: "10px",
                             display: "flex",
                             alignItem: "left",
+                            fontSize: "1.3 rem",
                           }}
                         >
                           {item.tiffin_description}
