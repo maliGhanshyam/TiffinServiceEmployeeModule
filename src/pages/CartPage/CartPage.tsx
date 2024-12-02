@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Grid2, Button, Divider } from "@mui/material";
+import { Box, Typography, Grid2, Button, Divider, Chip } from "@mui/material";
 import { Cart } from "../../Types/Cart";
 import {
   getAllCart,
@@ -149,6 +149,7 @@ const CartPage: React.FC = () => {
                           {item.tiffin_description}
                         </Typography>
                       </div>
+
                       <Box display="flex" alignItems="center" flex="1">
                         <NumberInputWithDebounce
                           initialValue={item.quantity}
@@ -156,6 +157,7 @@ const CartPage: React.FC = () => {
                             handleQuantityChange(item.tiffin_id, newQuantity)
                           }
                         />
+
                         <Button
                           variant="outlined"
                           startIcon={<DeleteIcon />}

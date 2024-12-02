@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import debounce from "lodash/debounce";
+import { TextField, InputAdornment, IconButton } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 const NumberInputWithDebounce = ({
   initialValue,
@@ -11,7 +14,7 @@ const NumberInputWithDebounce = ({
   const [value, setValue] = useState<number>(initialValue);
   const [tempValue, setTempValue] = useState<number | string>(initialValue);
 
-  // Declare the debounced function type
+  // Debounced function for updating the quantity
   const debouncedUpdate = useCallback(
     debounce((val: number) => {
       onUpdateQuantity(val);
@@ -26,11 +29,11 @@ const NumberInputWithDebounce = ({
     };
   }, [debouncedUpdate]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputVal = event.target.value;
 
     if (inputVal === "") {
-      // Allow empty value temporarily for editing
+      // Allow temporary empty value
       setTempValue("");
       return;
     }
@@ -50,14 +53,50 @@ const NumberInputWithDebounce = ({
     }
   };
 
+  const increment = () => {
+    const newValue = value + 1;
+    setTempValue(newValue);
+    setValue(newValue);
+    debouncedUpdate(newValue);
+  };
+
+  const decrement = () => {
+    if (value > 1) {
+      const newValue = value - 1;
+      setTempValue(newValue);
+      setValue(newValue);
+      debouncedUpdate(newValue);
+    }
+  };
+
   return (
-    <input
-      type="number"
-      min="1"
+    <TextField
+      variant="outlined"
+      size="small"
       value={tempValue}
-      onChange={handleChange}
+      onChange={handleInputChange}
       onBlur={handleBlur}
-      style={{ width: "60px", padding: "5px", textAlign: "center" }}
+      inputProps={{
+        style: { textAlign: "left", minWidth: "20px" },
+        min: 1,
+      }}
+      sx={{ width: "120px", marginLeft: "10px"}}
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <IconButton size="small" onClick={decrement} disabled={value <= 1}>
+              <RemoveIcon fontSize="small" />
+            </IconButton>
+          </InputAdornment>
+        ),
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton size="small" onClick={increment}>
+              <AddIcon fontSize="small" />
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
     />
   );
 };
