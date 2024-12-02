@@ -30,8 +30,8 @@ export const updateCartQuantity = async (
 
 export const removeTiffinFromCart = async (tiffinId: string): Promise<any> => {
   try {
-    const response = await axiosInstance.delete(
-      `/employees/cart/removetiffinFromcart/${tiffinId}`
+    const response = await axiosInstance.put(
+      `/employees/cart/removetiffinfromcart/${tiffinId}`
     );
     return response.data;
   } catch (error) {
