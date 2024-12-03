@@ -67,7 +67,7 @@ const UserDashboard = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            marginLeft: "70px",
+            marginLeft: {sm:"70px",xs:"30px"},
             marginTop: "20px",
           }}
         >
@@ -82,7 +82,7 @@ const UserDashboard = () => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            mr: 7,
+            mr: {sm:7,xs:4}
           }}
         >
           <Tabs
@@ -107,7 +107,7 @@ const UserDashboard = () => {
                 marginRight: "10px",
               }}
             />
-            View All
+            See All
           </Button>
         </Box>
 
@@ -136,8 +136,8 @@ const UserDashboard = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            marginLeft: "70px",
-            marginTop: "40px",
+            marginLeft: {sm:"70px",xs:"30px"},
+            marginTop: {sm:"40px",xs:"20px"}
           }}
         >
           <Storefront sx={{ marginRight: "8px" }} />

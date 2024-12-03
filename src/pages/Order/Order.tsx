@@ -88,13 +88,6 @@ export default function Order() {
     }
   };
 
-  // useEffect(() => {
-  //   if (searchTerm) {
-  //     searchOrder(searchTerm);
-  //   } else {
-  //     fetchOrders(page, limit, statusFilter);
-  //   }
-  // }, [searchTerm, page, limit, statusFilter]);
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchTerm) {

@@ -23,10 +23,10 @@ export const styles: { [key: string]: SxProps<Theme> } = {
   buttonStyleSeeAll: {
     variant: "contained",
     marginTop:1,
-    borderRadius: "1.2rem",
+    borderRadius:"1.2rem",
     borderColor: "primary.main",
     color: "primary.main",
-    padding: "5px 16px",
+    padding: {sm:"5px 16px",xs:"0px 10px"},
     fontWeight: "bold",
     "&:hover": {
       backgroundColor: "#e43e38",
@@ -34,11 +34,11 @@ export const styles: { [key: string]: SxProps<Theme> } = {
     },
   },
   tabStyle:{
-    marginLeft: { sm: 10, xs: 9 },
+    marginLeft: { sm: 10, xs: 6 },
     fontWeight: "bold",
     "& .MuiTab-root": {
       fontSize: { xs: "14px", sm: "14px" },
-      padding: { xs: "5px 10px", sm: "8px 16px" },
+      padding: { xs: "5px 8px", sm: "8px 16px" },
       minWidth: { sm: "90px", xs: "50px" },
       textTransform: "none",
     },

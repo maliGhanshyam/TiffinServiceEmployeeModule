@@ -42,6 +42,7 @@ const CardSlider = <T extends { _id: string }>({ data, children, settings }: Car
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          dots: false,
         },
       },
     ],

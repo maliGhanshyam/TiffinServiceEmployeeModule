@@ -11,8 +11,6 @@ import {
   MenuItem,
   TextField,
   InputAdornment,
-  Typography,
-  Box,
 } from "@mui/material";
 import { ActionCard } from "../../components/ActionCard";
 import { TiffinInfoCard } from "../../components/TiffinInfoCard";
@@ -166,7 +164,8 @@ const LandingPageTiffins = () => {
           container
           size={{ sm: 12 }}
           sx={{
-            marginLeft: "40px",
+            marginLeft: {sm:"40px",xs:"25px"},
+            marginRight: {sm:"0px",xs:"15px"},
             flexDirection: { sm: "row", xs: "column" },
           }}
         >

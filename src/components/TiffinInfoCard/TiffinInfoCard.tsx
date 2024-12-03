@@ -30,10 +30,6 @@ const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
       ? `${description.slice(0, 24)}...`
       : description;
   };
-  // const approvalStatus =
-  //   retailer.role_specific_details?.approval[0]?.approval_status;
-  // const rejectionReason =
-  //   retailer.role_specific_details?.approval[0]?.rejection_reason;
   return (
     <Box sx={styles.boxStyle}>
       <Typography variant="h6" sx={styles.titleStyles}>
@@ -45,11 +41,6 @@ const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
         </Typography>
       </Tooltip>
       <Typography>{tiffin.retailer_id.username}</Typography>
-      {/* {tiffin.tiffin_type === "veg" ? (
-        <AdjustIcon color="success" />
-      ) : (
-        <AdjustIcon color="error" />
-      )} */}
       <Typography
         variant="body2"
         sx={{
@@ -66,14 +57,15 @@ const TiffinInfoCard: React.FC<TiffinInfoCardProps> = ({
       </Typography>
       <Box sx={styles.fieldsBoxStyles}>
         <Chip
-          label={`Price: Rs.${tiffin.tiffin_price}`}
-          variant="outlined"
-          sx={{ fontWeight: 600, marginRight: 2 }}
+          label={` Rs.${tiffin.tiffin_price}`}
+          // variant="outlined"
+          // backgroundColor:"#fff",
+          sx={{ fontWeight: 600, marginRight: 1,backgroundColor:"#fff", fontSize:"1rem" }}
         />
         <Chip
-          label={`Qty: ${tiffin.tiffin_available_quantity}`}
-          variant="outlined"
-          sx={{ fontWeight: 600 }}
+          label={`Available Qty: ${tiffin.tiffin_available_quantity}`}
+          // variant="outlined"
+          sx={{ fontWeight: 600,borderRadius:2}}
         />
       </Box>
       {showButtons && (
