@@ -27,17 +27,15 @@ export const getAllOrders = async (
 
   export const searchOrders = async (
     query: string,
-    page: number,
-    limit: number
   ) => {
     try {
       const response = await axiosInstance.get(
         `${API_URL}/employees/searchorders`,
         {
-          params: { query, page, limit },
+          params: { query },
         }
       );
-      return response.data;
+      return response.data.data;
     } catch (error) {
       throw error;
     }

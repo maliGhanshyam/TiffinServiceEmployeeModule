@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
@@ -8,7 +8,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Cancel, CheckCircle } from "@mui/icons-material";
 import {
   Dialog,
   DialogContent,
@@ -18,7 +17,12 @@ import {
   InputAdornment,
   Button,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  ArrowDownward,
+  ArrowUpward,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
 import { formatDate } from "../../utils/formatDate";
 import { buttonStyles, getStatusBadgeStyle, styles } from "./Order.styles";
@@ -41,8 +45,14 @@ export default function Order() {
     null
   );
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
-  const [debounceTimeout, setDebounceTimeout] = useState<any>(null);
   const limit = rowsPerPage; // Set limit to 2 items per page
+  const [sortConfig, setSortConfig] = useState<{
+    key: string | null;
+    direction: "asc" | "desc" | null;
+  }>({
+    key: null,
+    direction: null,
+  });
   const { showSnackbar } = useSnackbar();
 
   const fetchOrders = async (
@@ -66,30 +76,35 @@ export default function Order() {
   // Search orders
   const searchOrder = async (
     query: string = "",
-    page: number = 0,
-    limit: number = 2
   ) => {
     try {
-      const { data, totalItems, totalPages } = await searchOrders(
+      const data = await searchOrders(
         query,
-        page + 1,
-        limit
       );
       setOrders(data || []);
-      setTotalItems(totalItems);
-      setTotalPages(totalPages);
     } catch (error) {
       showSnackbar("Search error", "error");
       setOrders([]);
     }
   };
 
+  // useEffect(() => {
+  //   if (searchTerm) {
+  //     searchOrder(searchTerm);
+  //   } else {
+  //     fetchOrders(page, limit, statusFilter);
+  //   }
+  // }, [searchTerm, page, limit, statusFilter]);
   useEffect(() => {
-    if (searchTerm) {
-      searchOrder(searchTerm, page, limit);
-    } else {
-      fetchOrders(page, limit, statusFilter);
-    }
+    const timer = setTimeout(() => {
+      if (searchTerm) {
+        searchOrder(searchTerm);
+      } else {
+        fetchOrders(page, limit, statusFilter);
+      }
+    }, 500); 
+
+    return () => clearTimeout(timer); // Cleanup time
   }, [searchTerm, page, limit, statusFilter]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -104,14 +119,8 @@ export default function Order() {
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-    if (debounceTimeout) {
-      clearTimeout(debounceTimeout);
-    }
-    const timeout = setTimeout(() => {
-      searchOrder(event.target.value);
-    }, 300);
-    setDebounceTimeout(timeout);
+    const value = event.target.value;
+    setSearchTerm(value);
   };
   useEffect(() => {
     if (!searchTerm) {
@@ -131,31 +140,40 @@ export default function Order() {
     setConfirmOpenDialog(false);
     setSelectedOrder(null);
   };
-  // const handleApprove = async (orderId: string) => {
-  //   await confirmOrders(orderId);
-  //   showSnackbar("Order Confirm Sucessfully.", "success");
-  //   await fetchOrders(page, limit);
-  // };
+  const handleSort = (key: string) => {
+    setSortConfig((prev) => {
+      if (prev.key === key) {
+        return { key, direction: prev.direction === "asc" ? "desc" : "asc" };
+      }
+      return { key, direction: "asc" };
+    });
+  };
+  const sortedOrders = useMemo(() => {
+    if (sortConfig.key && sortConfig.direction) {
+      return [...orders].sort((a, b) => {
+        const aValue =
+          sortConfig.key === "cart.total_amount"
+            ? Number(a.cart.total_amount)
+            : (a[sortConfig.key as keyof OrderValue] || "")
+                .toString()
+                .toLowerCase();
+        const bValue =
+          sortConfig.key === "cart.total_amount"
+            ? Number(b.cart.total_amount)
+            : (b[sortConfig.key as keyof OrderValue] || "")
+                .toString()
+                .toLowerCase();
 
-  // const handleReject = async (orderId: string) => {
-  //   await cancelOrders(orderId);
-  //   showSnackbar("Order Rejected Sucessfully.", "success");
-  //   await fetchOrders(page, limit);
-  // };
+        if (aValue < bValue) return sortConfig.direction === "asc" ? -1 : 1;
+        if (aValue > bValue) return sortConfig.direction === "asc" ? 1 : -1;
+        return 0;
+      });
+    }
+    return orders;
+  }, [orders, sortConfig]);
+
   const Row = ({ order }: { order: OrderValue }) => {
     const [open, setOpen] = useState(false);
-
-    // const handleApproveClick = () => {
-    //   setActionType("approve");
-    //   setSelectedOrder(order);
-    //   setConfirmOpenDialog(true);
-    // };
-
-    // const handleRejectClick = () => {
-    //   setActionType("reject");
-    //   setSelectedOrder(order);
-    //   setConfirmOpenDialog(true);
-    // };
     const isApproved = order.delivery_status === "delivered";
     const isRejected = order.delivery_status === "cancelled";
     return (
@@ -193,9 +211,6 @@ export default function Order() {
               {order.delivery_status}
             </span>
           </TableCell>
-          {/* <TableCell sx={styles.tableCellStyleNormal}>
-            {order.cart.customer_contact}
-          </TableCell> */}
           <TableCell sx={styles.tableCellStyleNone}>
             <IconButton
               aria-label="expand row"
@@ -205,26 +220,6 @@ export default function Order() {
               {open ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </TableCell>
-          {/* <TableCell sx={styles.tableCellStyleNone}>
-            <IconButton
-              onClick={handleApproveClick}
-              // onClick={() => handleApprove(order._id)}
-              color="success"
-              sx={styles.iconButtonStyle}
-              disabled={isApproved || isRejected}
-            >
-              <CheckCircle />
-            </IconButton>
-            <IconButton
-              onClick={handleRejectClick}
-              // onClick={() => handleReject(order._id)}
-              color="error"
-              sx={styles.iconButtonRejectStyle}
-              disabled={isRejected || isApproved}
-            >
-              <Cancel />
-            </IconButton>
-          </TableCell> */}
         </TableRow>
       </>
     );
@@ -233,113 +228,189 @@ export default function Order() {
   return (
     <Paper sx={styles.paperStyle}>
       <Box sx={styles.boxStyle}>
-      <Box sx={styles.boxStyleButton}>
-        <Button
-          onClick={() => {
-            setStatusFilter("pending");
-            setPage(0);
-            fetchOrders(0, limit, "pending");
-          }}
-          sx={{
-            ...buttonStyles.baseButton,
-            ...(statusFilter === "pending"
-              ? buttonStyles.activeButton
-              : buttonStyles.defaultButton),
-          }}
-          variant="outlined"
-        >
-          Pending
-        </Button>
-        <Button
-          onClick={() => {
-            setStatusFilter("cancelled");
-            setPage(0);
-            fetchOrders(0, limit, "cancelled");
-          }}
-          sx={{
-            ...buttonStyles.baseButton,
-            ...(statusFilter === "cancelled"
-              ? buttonStyles.activeButton
-              : buttonStyles.defaultButton),
-          }}
-          variant="outlined"
-        >
-          Cancelled
-        </Button>
-        <Button
-          onClick={() => {
-            setStatusFilter("delivered");
-            setPage(0);
-            fetchOrders(0, limit, "delivered");
-          }}
-          sx={{
-            ...buttonStyles.baseButton,
-            ...(statusFilter === "delivered"
-              ? buttonStyles.activeButton
-              : buttonStyles.defaultButton),
-          }}
-          variant="outlined"
-        >
-          Delivered
-        </Button>
-        <Button
-          onClick={() => {
-            setStatusFilter(null);
-            setPage(0);
-            fetchOrders(0, limit);
-          }}
-          sx={{
-            ...buttonStyles.baseButton,
-            ...(statusFilter === null
-              ? buttonStyles.activeButton
-              : buttonStyles.defaultButton),
-          }}
-          variant="outlined"
-        >
-          All Orders
-        </Button>
+        <Box sx={styles.boxStyleButton}>
+          <Button
+            onClick={() => {
+              setStatusFilter("pending");
+              setSearchTerm("");
+              setPage(0);
+              fetchOrders(0, limit, "pending");
+            }}
+            sx={{
+              ...buttonStyles.baseButton,
+              ...(statusFilter === "pending"
+                ? buttonStyles.activeButton
+                : buttonStyles.defaultButton),
+            }}
+            variant="outlined"
+          >
+            Pending
+          </Button>
+          <Button
+            onClick={() => {
+              setStatusFilter("cancelled");
+              setSearchTerm("");
+              setPage(0);
+              fetchOrders(0, limit, "cancelled");
+            }}
+            sx={{
+              ...buttonStyles.baseButton,
+              ...(statusFilter === "cancelled"
+                ? buttonStyles.activeButton
+                : buttonStyles.defaultButton),
+            }}
+            variant="outlined"
+          >
+            Cancelled
+          </Button>
+          <Button
+            onClick={() => {
+              setStatusFilter("delivered");
+              setSearchTerm("");
+              setPage(0);
+              fetchOrders(0, limit, "delivered");
+            }}
+            sx={{
+              ...buttonStyles.baseButton,
+              ...(statusFilter === "delivered"
+                ? buttonStyles.activeButton
+                : buttonStyles.defaultButton),
+            }}
+            variant="outlined"
+          >
+            Delivered
+          </Button>
+          <Button
+            onClick={() => {
+              setStatusFilter(null);
+              setPage(0);
+              fetchOrders(0, limit);
+            }}
+            sx={{
+              ...buttonStyles.baseButton,
+              ...(statusFilter === null
+                ? buttonStyles.activeButton
+                : buttonStyles.defaultButton),
+            }}
+            variant="outlined"
+          >
+            All Orders
+          </Button>
         </Box>
         <Box sx={styles.boxStyleSearch}>
-        <TextField
-          fullWidth
-          label="Search by Names & Type"
-          variant="outlined"
-          size="small"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          sx={{ width: "auto" }}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Box>
+          <TextField
+            fullWidth
+            label="Search by Names & Type"
+            variant="outlined"
+            size="small"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            onFocus={() => {
+              if (statusFilter !== null) {
+                setStatusFilter(null); // Switch to All Orders tab
+                setPage(0);
+                fetchOrders(0, limit);
+              }
+            }}
+            sx={{ width: "auto" }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
       </Box>
       <TableContainer sx={{ maxHeight: 800 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead sx={styles.background}>
             <TableRow>
-              <TableCell sx={styles.fontWeightBold}>Date</TableCell>
-              <TableCell sx={styles.fontWeightBold}>Retailer Name</TableCell>
-              <TableCell sx={styles.tableCellStyleFont}>Payment Mode</TableCell>
-              <TableCell sx={styles.tableCellStyleFont}>Total Amount</TableCell>
-              <TableCell sx={styles.tableCellStyleFont}>Payment Status</TableCell>
-              <TableCell sx={styles.tableCellStyleFont}>Delivery Status</TableCell>
+              <TableCell
+                onClick={() => handleSort("created_at")}
+                sx={styles.fontWeightBold}
+              >
+                Date{" "}
+                {sortConfig.key === "created_at" &&
+                  (sortConfig.direction === "asc" ? (
+                    <ArrowUpward sx={styles.arraowIconSize} />
+                  ) : (
+                    <ArrowDownward sx={styles.arraowIconSize} />
+                  ))}
+              </TableCell>
+              <TableCell
+                onClick={() => handleSort("cart.retailer_name")}
+                sx={styles.fontWeightBold}
+              >
+                Retailer Name
+                {sortConfig.key === "cart.retailer_name" &&
+                  (sortConfig.direction === "asc" ? (
+                    <ArrowUpward sx={styles.arraowIconSize} />
+                  ) : (
+                    <ArrowDownward sx={styles.arraowIconSize} />
+                  ))}
+              </TableCell>
+              <TableCell
+                onClick={() => handleSort("payment_mode")}
+                sx={styles.tableCellStyleFont}
+              >
+                Payment Mode
+                {sortConfig.key === "payment_mode" &&
+                  (sortConfig.direction === "asc" ? (
+                    <ArrowUpward sx={styles.arraowIconSize} />
+                  ) : (
+                    <ArrowDownward sx={styles.arraowIconSize} />
+                  ))}
+              </TableCell>
+              <TableCell
+                onClick={() => handleSort("cart.total_amount")}
+                sx={styles.tableCellStyleFont}
+              >
+                Total Amount
+                {sortConfig.key === "cart.total_amount" &&
+                  (sortConfig.direction === "asc" ? (
+                    <ArrowUpward sx={styles.arraowIconSize} />
+                  ) : (
+                    <ArrowDownward sx={styles.arraowIconSize} />
+                  ))}
+              </TableCell>
+              <TableCell
+                onClick={() => handleSort("payment_status")}
+                sx={styles.tableCellStyleFont}
+              >
+                Payment Status
+                {sortConfig.key === "payment_status" &&
+                  (sortConfig.direction === "asc" ? (
+                    <ArrowUpward sx={styles.arraowIconSize} />
+                  ) : (
+                    <ArrowDownward sx={styles.arraowIconSize} />
+                  ))}
+              </TableCell>
+              <TableCell
+                onClick={() => handleSort("delivery_status")}
+                sx={styles.tableCellStyleFont}
+              >
+                Delivery Status
+                {sortConfig.key === "delivery_status" &&
+                  (sortConfig.direction === "asc" ? (
+                    <ArrowUpward sx={styles.arraowIconSize} />
+                  ) : (
+                    <ArrowDownward sx={styles.arraowIconSize} />
+                  ))}
+              </TableCell>
               <TableCell sx={styles.fontWeightBold}>View Items</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.length === 0 ? (
+            {sortedOrders.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={9} align="center">
                   No Data Available
                 </TableCell>
               </TableRow>
             ) : (
-              orders.map((order) => <Row key={order._id} order={order} />)
+              sortedOrders.map((order) => <Row key={order._id} order={order} />)
             )}
           </TableBody>
         </Table>
@@ -362,15 +433,9 @@ export default function Order() {
             <TableHead sx={styles.background}>
               <TableRow>
                 <TableCell sx={styles.fontWeightBold}>Tiffin Name</TableCell>
-                <TableCell sx={styles.fontWeightBold}>
-                  Quantity
-                </TableCell>
-                <TableCell sx={styles.tableCellStyleFont}>
-                  Type
-                </TableCell>
-                <TableCell sx={styles.fontWeightBold}>
-                  Price
-                </TableCell>
+                <TableCell sx={styles.fontWeightBold}>Quantity</TableCell>
+                <TableCell sx={styles.tableCellStyleFont}>Type</TableCell>
+                <TableCell sx={styles.fontWeightBold}>Price</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

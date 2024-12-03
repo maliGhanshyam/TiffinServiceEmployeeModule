@@ -17,6 +17,7 @@ import LandingPageTiffins from "../pages/LandingPageTiffins/LandingPageTiffins";
 import { Payment } from "../pages/PaymentPage";
 import OrderConfirmation from "../pages/OrderConfirmationPage/OrderConfirmation";
 import { Navigate } from "react-router-dom";
+import { Navbar } from "../components/Navbar";
 
 const childRoutes = [
   {
@@ -27,6 +28,14 @@ const childRoutes = [
       </ProtectedRoute>
     ),
   },
+  // {
+  //   path: "navbar",
+  //   element: (
+  //     <ProtectedRoute guestOnly={true}>
+  //       <Navbar />
+  //     </ProtectedRoute>
+  //   ),
+  // },
   {
     path: "register",
     element: <EmployeeRegistration />,
@@ -61,7 +70,8 @@ const childRoutes = [
   },
   {
     path: "/dashboard",
-    element: <UserDashboard />,
+    element: (
+    <ProtectedRoute><UserDashboard /></ProtectedRoute>),
   },
   {
     path: "order",

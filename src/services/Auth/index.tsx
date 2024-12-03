@@ -1,1 +1,1 @@
-export { registerAdmin,getUserByToken,uploadUserImage,updateProfile } from "./Auth";
+export { registerAdmin,getUserByToken,uploadUserImage,updateProfile,updateLoc } from "./Auth";

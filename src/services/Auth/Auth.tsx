@@ -132,3 +132,14 @@ export const updateProfile = async (
     throw error;
   }
 };
+
+export const updateLoc = async (org_location:string):Promise<UserResponse> => {
+  try {
+    const response = await axiosInstance.get(
+      `${API_URL}/auth/updateloc?query=${org_location}`,
+    );
+    return response.data.data;
+  } catch (error) {
+    throw new Error("Failed to update location");
+  }
+};

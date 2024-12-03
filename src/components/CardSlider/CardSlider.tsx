@@ -6,7 +6,7 @@ import { styles } from "./CardSlider.styles";
 
 const CardSlider = <T extends { _id: string }>({ data, children, settings }: CardSliderProps<T>) => {
     const defaultSettings = {
-    infinite: true, 
+    infinite: data.length > 1, 
     speed: 500, 
     slidesToShow: 4,
     slidesToScroll: 2,

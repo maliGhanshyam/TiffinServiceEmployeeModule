@@ -1,1 +1,1 @@
-export { getOrganizations } from "./Organization";
+export { getOrganizations,getOrganizationById } from "./Organization";
